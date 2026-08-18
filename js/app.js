@@ -102,25 +102,10 @@ function renderInfo() {
   $('#cfg-cc-mode').value = m.closeCall.mode;
   $('#cfg-cc-beep').checked = m.closeCall.altBeep === 'On';
   $('#cfg-cc-light').checked = m.closeCall.altLight === 'On';
-  renderBankChips();
   renderCustomRanges();
   renderServices();
   renderCCBands();
   renderGL();
-}
-
-function renderBankChips() {
-  const wrap = $('#bank-chips');
-  wrap.innerHTML = '';
-  state.model.banks.forEach((b) => {
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'chip' + (b.enabled ? ' on' : '');
-    chip.dataset.bank = b.index;
-    chip.title = b.enabled ? 'Banco habilitado — clique para desabilitar' : 'Banco desabilitado — clique para habilitar';
-    chip.textContent = `${b.index} · ${b.name}`;
-    wrap.appendChild(chip);
-  });
 }
 
 function renderCustomRanges() {
@@ -200,11 +185,14 @@ function renderBanks() {
     const count = b.channels.filter((c) => c.freqHz > 0).length;
     const tab = document.createElement('button');
     tab.type = 'button';
-    tab.className = 'tab' + (b.index - 1 === state.activeBank ? ' active' : '');
+    tab.className = 'tab' + (b.index - 1 === state.activeBank ? ' active' : '') + (b.enabled ? '' : ' off');
     tab.dataset.bank = b.index;
-    tab.textContent = `${b.index} · ${b.name} (${count})`;
+    tab.title = `${b.name} — ${count} canais${b.enabled ? '' : ' (desabilitado no scan)'}`;
+    tab.textContent = b.index;
     tabs.appendChild(tab);
   });
+  const active = state.model.banks[state.activeBank];
+  $('#bank-enabled').checked = !!active && active.enabled;
   renderBankTable();
 }
 
@@ -558,14 +546,12 @@ function init() {
   $('#cfg-cc-beep').addEventListener('change', (e) => { state.model.closeCall.altBeep = e.target.checked ? 'On' : 'Off'; });
   $('#cfg-cc-light').addEventListener('change', (e) => { state.model.closeCall.altLight = e.target.checked ? 'On' : 'Off'; });
 
-  $('#bank-chips').addEventListener('click', (e) => {
-    const chip = e.target.closest('[data-bank]');
-    if (!chip) return;
-    const b = state.model.banks.find((x) => x.index === +chip.dataset.bank);
-    if (b) {
-      b.enabled = !b.enabled;
-      renderBankChips();
-    }
+  $('#bank-enabled').addEventListener('change', (e) => {
+    const bank = state.model.banks[state.activeBank];
+    if (!bank) return;
+    bank.enabled = e.target.checked;
+    renderBanks();
+    toast(`Banco ${bank.index} ${bank.enabled ? 'habilitado' : 'desabilitado'} no scan.`);
   });
 
   $('#custom-ranges').addEventListener('change', (e) => {

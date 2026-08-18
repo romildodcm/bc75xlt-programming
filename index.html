@@ -83,12 +83,6 @@
       </section>
 
       <section class="cfg-section">
-        <h3>Bancos de canais</h3>
-        <p class="hint">Habilitar/desabilitar bancos no scan (comando SCG).</p>
-        <div id="bank-chips" class="chips"></div>
-      </section>
-
-      <section class="cfg-section">
         <h3>Pesquisa geral</h3>
         <div class="cfg-grid">
           <div class="field"><label>Delay</label>
@@ -142,9 +136,15 @@
     </aside>
 
     <section class="banks-panel">
+      <div class="banks-header">
+        <h2 class="banks-title">Bancos de memória</h2>
+      </div>
       <div class="banks-toolbar">
         <div id="bank-tabs" class="tabs"></div>
-        <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar banco</button>
+        <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
+          <input type="checkbox" id="bank-enabled"> Habilitado no scan
+        </label>
+        <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar</button>
       </div>
       <div class="bank-content">
         <table class="ch-table">

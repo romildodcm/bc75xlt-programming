@@ -229,26 +229,35 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
   min-width: 0;
 }
 
+.banks-header { padding: 12px 16px 0; }
+.banks-title { margin: 0; font-size: 16px; }
+
 .banks-toolbar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 10px 12px;
   border-bottom: 1px solid var(--line);
   flex-wrap: wrap;
 }
-.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs { display: flex; gap: 5px; flex-wrap: wrap; }
 .tab {
   cursor: pointer;
   border: 1px solid var(--line);
   background: var(--bg3);
   color: var(--muted);
-  padding: 6px 12px;
+  min-width: 34px;
+  text-align: center;
+  padding: 6px 8px;
   border-radius: 8px;
-  font-size: 12.5px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
 }
 .tab.active { background: var(--accent); border-color: var(--accent); color: #04121f; font-weight: 700; }
 .tab:hover { border-color: var(--accent); }
+.tab.off { opacity: 0.45; }
+.tab.off.active { opacity: 1; }
+.tab.off:hover { opacity: 0.8; }
 
 .bank-content { max-height: calc(100vh - 320px); overflow: auto; }
 
