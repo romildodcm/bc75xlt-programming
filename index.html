@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BC75XLT — Web Programmer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <h1>📻 BC75XLT <span class="light">Web Programmer</span></h1>
+      <p class="subtitle">Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT</p>
+    </div>
+    <div class="conn">
+      <span id="serial-status" class="badge off">Desconectado</span>
+      <button id="btn-connect" class="btn btn-primary">🔌 Conectar rádio</button>
+      <button id="btn-disconnect" class="btn" hidden>Desconectar</button>
+    </div>
+  </header>
+
+  <div id="banner-unsupported" class="banner" hidden>
+    ⚠️ Seu navegador não suporta a <b>Web Serial API</b>. Use <b>Google Chrome</b> ou <b>Microsoft Edge</b> em uma página <b>HTTPS</b> (GitHub Pages fornece HTTPS automaticamente).
+  </div>
+
+  <details class="help-box">
+    <summary>ℹ️ Como usar</summary>
+    <ol>
+      <li>Conecte o rádio ao computador pelo cabo USB (driver CP210x instalado).</li>
+      <li>Clique em <b>Conectar rádio</b> e escolha a porta serial na janela do navegador.</li>
+      <li>Use <b>Ler do rádio</b> para carregar tudo do rádio, ou <b>Importar arquivo</b> para carregar um <code>.bc75xlt_ss</code>.</li>
+      <li>Edite as frequências nas abas de banco e as configurações no painel.</li>
+      <li>Use <b>Gravar no rádio</b> para enviar ao rádio (marque "limpar antes" para apagar tudo primeiro).</li>
+      <li>Use <b>Salvar arquivo</b> para baixar um arquivo <code>.bc75xlt_ss</code> compatível com o software original.</li>
+    </ol>
+  </details>
+
+  <section class="actions-bar">
+    <div class="actions-left">
+      <button id="btn-read" class="btn btn-accent" disabled>📥 Ler do rádio</button>
+      <button id="btn-write" class="btn btn-accent" disabled>📤 Gravar no rádio</button>
+      <label class="chk-inline" title="Executa o comando CLR antes de gravar (apaga toda a memória)"><input type="checkbox" id="chk-clear"> limpar antes</label>
+    </div>
+    <div class="actions-right">
+      <button id="btn-import" class="btn">📂 Importar arquivo</button>
+      <button id="btn-export" class="btn">💾 Salvar arquivo</button>
+      <input type="file" id="file-input" accept=".bc75xlt_ss,.ss,.txt" hidden>
+    </div>
+    <div id="progress-wrap" class="progress-wrap" hidden>
+      <progress id="progress" max="100" value="0"></progress>
+      <span id="progress-label"></span>
+    </div>
+  </section>
+
+  <main class="layout">
+    <aside class="config-panel">
+      <h2>⚙️ Configurações</h2>
+
+      <section class="cfg-section">
+        <h3>Rádio</h3>
+        <div class="cfg-grid">
+          <div class="field"><label>Modelo</label><span id="info-model" class="value">—</span></div>
+          <div class="field"><label>Firmware</label><span id="info-firmware" class="value">—</span></div>
+          <div class="field"><label>Band Plan</label>
+            <select id="cfg-bandplan">
+              <option value="USA">USA</option>
+              <option value="Canada">Canada</option>
+            </select>
+          </div>
+          <div class="field"><label>Prioridade</label>
+            <select id="cfg-priority">
+              <option value="Off">Off</option>
+              <option value="On">On</option>
+              <option value="Plus">Plus On</option>
+              <option value="DND">DND</option>
+            </select>
+          </div>
+          <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-keylock"> Key Lock</label></div>
+          <div class="field"><label>Volume <b id="cfg-vol-label">4</b></label><input type="range" id="cfg-vol" min="0" max="15" step="1"></div>
+          <div class="field"><label>Squelch <b id="cfg-sql-label">7</b></label><input type="range" id="cfg-sql" min="0" max="15" step="1"></div>
+        </div>
+      </section>
+
+      <section class="cfg-section">
+        <h3>Bancos de canais</h3>
+        <p class="hint">Habilitar/desabilitar bancos no scan (comando SCG).</p>
+        <div id="bank-chips" class="chips"></div>
+      </section>
+
+      <section class="cfg-section">
+        <h3>Pesquisa geral</h3>
+        <div class="cfg-grid">
+          <div class="field"><label>Delay</label>
+            <select id="cfg-gs-dly"></select>
+          </div>
+          <div class="field"><label>Direção</label>
+            <select id="cfg-gs-dir"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="cfg-section">
+        <h3>Pesquisa customizada</h3>
+        <p class="hint">Delay/direção das faixas customizadas e até 10 faixas de frequência (CSG/CSP).</p>
+        <div class="cfg-grid">
+          <div class="field"><label>Delay</label>
+            <select id="cfg-cs-dly"></select>
+          </div>
+          <div class="field"><label>Direção</label>
+            <select id="cfg-cs-dir"></select>
+          </div>
+        </div>
+        <div id="custom-ranges" class="ranges"></div>
+      </section>
+
+      <section class="cfg-section">
+        <h3>Close Call</h3>
+        <div class="cfg-grid">
+          <div class="field"><label>Modo</label>
+            <select id="cfg-cc-mode">
+              <option value="Off">Off</option>
+              <option value="CC PRI">CC PRI</option>
+              <option value="CC DND">CC DND</option>
+            </select>
+          </div>
+          <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-cc-beep"> Alerta sonoro</label></div>
+          <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-cc-light"> Alerta visual</label></div>
+        </div>
+        <div id="cc-bands" class="chips"></div>
+      </section>
+
+      <section class="cfg-section">
+        <h3>Serviços (Service Search)</h3>
+        <div id="services-list" class="services"></div>
+      </section>
+
+      <details id="global-lockout-details" class="cfg-section">
+        <summary>🔒 Lockouts globais (<span id="gl-count">0</span>)</summary>
+        <ul id="gl-list" class="gl-list"></ul>
+      </details>
+    </aside>
+
+    <section class="banks-panel">
+      <div class="banks-toolbar">
+        <div id="bank-tabs" class="tabs"></div>
+        <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar banco</button>
+      </div>
+      <div class="bank-content">
+        <table class="ch-table">
+          <thead>
+            <tr>
+              <th class="ch-num">CH</th>
+              <th>Frequência (MHz)</th>
+              <th title="Delay">DLY</th>
+              <th title="Lockout">LOCK</th>
+              <th title="Priority">PRI</th>
+            </tr>
+          </thead>
+          <tbody id="ch-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Comunicação direta com o rádio pelo navegador via <b>Web Serial API</b> — nenhum dado sai do seu computador.
+    Protocolo baseado em <code>BC75XLT_Protocol.pdf</code> (Uniden) e no projeto <a href="https://github.com/mateusza/bearcatctl" target="_blank" rel="noopener">mateusza/bearcatctl</a>.</p>
+  </footer>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="js/protocol.js"></script>
+  <script src="js/configfile.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

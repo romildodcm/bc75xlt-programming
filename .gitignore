@@ -1,0 +1,7 @@
+# Pastas de referência (repositórios clonados para estudo — não fazem parte do site)
+referencias/
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+*.log
