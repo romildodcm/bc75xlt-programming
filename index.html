@@ -139,15 +139,17 @@
 
       <div id="view-bank" class="view bank-view">
         <div class="bank-toolbar">
-          <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
-            <input type="checkbox" id="bank-enabled"> Scan
-          </label>
           <div id="bank-tabs" class="sub-tabs"></div>
-          <div class="bank-tools">
-            <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar</button>
-          </div>
         </div>
         <div class="bank-content">
+          <div class="bank-controls">
+            <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
+              <input type="checkbox" id="bank-enabled"> Scan
+            </label>
+            <div class="bank-tools">
+              <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar</button>
+            </div>
+          </div>
           <table class="ch-table">
             <thead>
               <tr>
