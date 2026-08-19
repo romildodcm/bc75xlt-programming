@@ -59,18 +59,6 @@
         <h2 class="banks-title">Rádio BC75XLT</h2>
       </div>
 
-      <div class="banks-toolbar">
-        <div id="main-tabs" class="tabs">
-          <button type="button" class="tab" data-view="config" title="Configurações do rádio">⚙️ Configurações</button>
-        </div>
-        <div id="bank-tools" class="bank-tools">
-          <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
-            <input type="checkbox" id="bank-enabled"> Habilitado no scan
-          </label>
-          <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar</button>
-        </div>
-      </div>
-
       <div id="view-config" class="view config-view" hidden>
         <section class="cfg-section">
           <h3>Rádio</h3>
@@ -151,6 +139,15 @@
       </div>
 
       <div id="view-bank" class="view bank-view">
+        <div class="bank-toolbar">
+          <div id="bank-tabs" class="sub-tabs"></div>
+          <div class="bank-tools">
+            <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
+              <input type="checkbox" id="bank-enabled"> Habilitado no scan
+            </label>
+            <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar</button>
+          </div>
+        </div>
         <div class="bank-content">
           <table class="ch-table">
             <thead>
@@ -165,6 +162,11 @@
             <tbody id="ch-tbody"></tbody>
           </table>
         </div>
+      </div>
+
+      <div class="sheet-tabs" role="tablist">
+        <button type="button" class="sheet-tab" data-view="config" role="tab" title="Configurações gerais do rádio">⚙️ Configurações</button>
+        <button type="button" class="sheet-tab" data-view="bank" role="tab" title="Bancos de memória com as frequências">🗂️ Bancos de memória</button>
       </div>
     </section>
   </main>

@@ -230,33 +230,79 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
 .banks-header { padding: 12px 16px 0; }
 .banks-title { margin: 0; font-size: 16px; }
 
-.banks-toolbar {
+/* ---------- Abas principais estilo planilha (Excel) ---------- */
+.sheet-tabs {
   display: flex;
-  align-items: center;
+  gap: 6px;
+  padding: 10px 14px 12px;
+  background: var(--bg2);
+  border-top: 1px solid var(--line);
+}
+.sheet-tab {
+  appearance: none;
+  cursor: pointer;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 9px 9px 0 0;
+  padding: 8px 16px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.15s;
+}
+.sheet-tab:hover { border-color: var(--accent); color: var(--text); }
+.sheet-tab.active {
+  background: var(--bg2);
+  border-color: var(--line);
+  border-bottom-color: var(--bg2);
+  color: var(--text);
+  font-weight: 700;
+  position: relative;
+  top: 1px;
+  margin-bottom: -2px;
+}
+
+/* ---------- Sub-abas dos bancos (dentro da aba Bancos) ---------- */
+.bank-toolbar {
+  display: flex;
+  align-items: flex-end;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 10px 12px 0;
+  background: var(--bg2);
   border-bottom: 1px solid var(--line);
   flex-wrap: wrap;
 }
-.tabs { display: flex; gap: 5px; flex-wrap: wrap; }
-.bank-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.tab {
+.sub-tabs { display: flex; gap: 4px; flex-wrap: wrap; align-items: flex-end; }
+.sub-tab {
+  appearance: none;
   cursor: pointer;
-  border: 1px solid var(--line);
   background: var(--bg3);
-  color: var(--muted);
+  border: 1px solid var(--line);
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
   min-width: 34px;
   text-align: center;
-  padding: 6px 8px;
-  border-radius: 8px;
-  font-size: 13px;
+  padding: 6px 10px;
+  color: var(--muted);
+  font-size: 12.5px;
   font-variant-numeric: tabular-nums;
 }
-.tab.active { background: var(--accent); border-color: var(--accent); color: #04121f; font-weight: 700; }
-.tab:hover { border-color: var(--accent); }
-.tab.off { opacity: 0.45; }
-.tab.off.active { opacity: 1; }
-.tab.off:hover { opacity: 0.8; }
+.sub-tab:hover { border-color: var(--accent); color: var(--text); }
+.sub-tab.active {
+  background: var(--bg2);
+  color: var(--text);
+  font-weight: 700;
+  border-color: var(--line);
+  border-bottom: none;
+  position: relative;
+  top: 1px;
+  margin-bottom: -1px;
+}
+.sub-tab.off { opacity: 0.45; }
+.sub-tab.off.active { opacity: 1; }
+.sub-tab.off:hover { opacity: 0.8; }
+
+.bank-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-left: auto; }
 
 .bank-content { max-height: calc(100vh - 320px); overflow: auto; }
 
