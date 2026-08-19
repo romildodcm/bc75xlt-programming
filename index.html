@@ -58,15 +58,15 @@
         <section class="cfg-section">
           <h3>Rádio</h3>
           <div class="cfg-grid">
-            <div class="field"><label>Modelo</label><span id="info-model" class="value">—</span></div>
-            <div class="field"><label>Firmware</label><span id="info-firmware" class="value">—</span></div>
-            <div class="field"><label>Band Plan</label>
+            <div class="field"><label data-tip="Modelo do rádio, lido do próprio rádio (ex.: BC75XLT).">Modelo</label><span id="info-model" class="value">—</span></div>
+            <div class="field"><label data-tip="Versão do firmware do rádio, lida do próprio rádio.">Firmware</label><span id="info-firmware" class="value">—</span></div>
+            <div class="field"><label data-tip="Plano de banda: define a grade de passos de frequência (USA ou Canadá).">Band Plan</label>
               <select id="cfg-bandplan">
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
               </select>
             </div>
-            <div class="field"><label>Prioridade</label>
+            <div class="field"><label data-tip="Modo de prioridade: verifica canais de prioridade durante a varredura (Off, On, Plus On ou DND).">Prioridade</label>
               <select id="cfg-priority">
                 <option value="Off">Off</option>
                 <option value="On">On</option>
@@ -75,7 +75,7 @@
               </select>
             </div>
             <div class="field">
-              <label>Volume</label>
+              <label data-tip="Nível de volume do rádio (0 a 15).">Volume</label>
               <div class="stepper">
                 <button type="button" class="step-btn" data-step="vol" data-dir="-1" title="Diminuir volume"><span class="ms" aria-hidden="true">remove</span></button>
                 <span id="cfg-vol-label" class="step-value">3</span>
@@ -83,14 +83,14 @@
               </div>
             </div>
             <div class="field">
-              <label>Squelch</label>
+              <label data-tip="Squelch: silencia o ruído de fundo entre transmissões (0 = aberto, 15 = fechado).">Squelch</label>
               <div class="stepper">
                 <button type="button" class="step-btn" data-step="sql" data-dir="-1" title="Diminuir squelch"><span class="ms" aria-hidden="true">remove</span></button>
                 <span id="cfg-sql-label" class="step-value">3</span>
                 <button type="button" class="step-btn" data-step="sql" data-dir="1" title="Aumentar squelch"><span class="ms" aria-hidden="true">add</span></button>
               </div>
             </div>
-            <div class="field key-lock-field"><label class="chk-inline"><input type="checkbox" id="cfg-keylock"> Key Lock</label></div>
+            <div class="field key-lock-field"><label class="chk-inline" data-tip="Key Lock: trava o teclado do rádio para evitar acionamento acidental."><input type="checkbox" id="cfg-keylock"> Key Lock</label></div>
           </div>
         </section>
 
