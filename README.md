@@ -1,90 +1,93 @@
 # 📻 BC75XLT Web Programmer
 
-Página web (estática, para **GitHub Pages**) que programa o rádio **Uniden BC75XLT / UBC75XLT** diretamente pelo navegador usando a **Web Serial API** — sem instalar nada e sem enviar dados para servidores.
+> 🇧🇷 [Versão em português](README.pt-BR.md) · Portuguese version available
 
-![Web Serial](https://img.shields.io/badge/Web%20Serial-Chrome%20%2F%20Edge-blue) ![Estático](https://img.shields.io/badge/static-100%25-34d399)
+A static web page (for **GitHub Pages**) that programs the **Uniden BC75XLT / UBC75XLT** scanner radio directly from the browser using the **Web Serial API** — no software to install and no data sent to servers.
 
-## Funcionalidades
+![Web Serial](https://img.shields.io/badge/Web%20Serial-Chrome%20%2F%20Edge-blue) ![Static](https://img.shields.io/badge/static-100%25-34d399)
 
-- 🔌 **Conectar o rádio** pela porta serial (Web Serial API) a 57600 bps.
-- 📥 **Ler do rádio**: carrega todas as configurações + os 300 canais (10 bancos × 30).
-- 📤 **Gravar no rádio**: envia as configurações e canais (com opção de *limpar memória* antes).
-- 📂 **Importar arquivo**: lê arquivos `.bc75xlt_ss` do software original da Uniden.
-- 💾 **Salvar arquivo**: exporta `.bc75xlt_ss` compatível com o software original.
-- ⚙️ Painel de configurações: Band Plan, Prioridade, Key Lock, Volume, Squelch, pesquisa geral/customizada, Close Call, bancos (SCG), Service Search e lockouts globais.
-- 🗂️ Abas com as listas de frequências de cada banco, editáveis.
+## Features
 
-## Como usar
+- 🔌 **Connect the radio** via the serial port (Web Serial API) at 57600 bps.
+- 📥 **Read from radio**: loads all settings + the 300 channels (10 banks × 30).
+- 📤 **Write to radio**: sends settings and channels (with option to *clear memory* first).
+- 📂 **Import file**: reads `.bc75xlt_ss` files from Uniden's original software.
+- 💾 **Save file**: exports a `.bc75xlt_ss` compatible with the original software.
+- ⚙️ Settings panel: Band Plan, Priority, Key Lock, Volume, Squelch, general/custom search, Close Call, banks (SCG), Service Search and global lockouts.
+- 🗂️ Tabs with editable frequency lists for each bank.
+- 📋 **Paste frequencies** from a spreadsheet (Excel column) directly into a bank.
 
-1. Conecte o rádio ao computador pelo cabo USB (driver **Silicon Labs CP210x** instalado).
-2. Abra a página em **Chrome** ou **Edge** (via HTTPS).
-3. Clique em **Conectar rádio** e escolha a porta serial.
-4. **Ler do rádio** ou **Importar arquivo** para carregar a configuração.
-5. Edite e clique em **Gravar no rádio**.
+## How to use
 
-> A Web Serial API exige **HTTPS** (o GitHub Pages fornece automaticamente) ou `localhost` para testes locais.
+1. Connect the radio to the computer via USB cable (driver **Silicon Labs CP210x** installed).
+2. Open the page in **Chrome** or **Edge** (over HTTPS).
+3. Click **Connect radio** and pick the serial port.
+4. **Read from radio** or **Import file** to load the configuration.
+5. Edit and click **Write to radio**.
 
-## Rodando localmente (testes)
+> The Web Serial API requires **HTTPS** (GitHub Pages provides it automatically) or `localhost` for local testing.
+
+## Running locally (tests)
 
 ```bash
 python3 -m http.server 8000
-# abra http://localhost:8000
+# open http://localhost:8000
 ```
 
-Teste de round-trip do formato `.bc75xlt_ss` (usa o fixture sanitizado em `test/fixtures/` — dados fictícios, sem conteúdo real):
+Round-trip test of the `.bc75xlt_ss` format (uses the sanitized fixture in `test/fixtures/` — dummy data, no real content):
 
 ```bash
 node test/roundtrip.test.js
-# Regenerar o fixture (opcional): node test/generate-fixture.js
+# Regenerate the fixture (optional): node test/generate-fixture.js
 ```
 
-## Publicando no GitHub Pages + domínio `bcp.romildo.net`
+## Publishing to GitHub Pages + `bcp.romildo.net` domain
 
-1. Crie um repositório no GitHub a partir desta pasta e faça o push:
+1. Create a GitHub repository from this folder and push it:
 
    ```bash
    git init
    git add .
    git commit -m "BC75XLT Web Programmer"
    git branch -M main
-   git remote add origin git@github.com:SEU_USUARIO/SEU_REPO.git
+   git remote add origin git@github.com:YOUR_USER/YOUR_REPO.git
    git push -u origin main
    ```
 
-2. No repositório: **Settings → Pages** → *Source*: **Deploy from a branch** → `main` / root. O arquivo `CNAME` já está no repositório.
+2. In the repository: **Settings → Pages** → *Source*: **Deploy from a branch** → `main` / root. The `CNAME` file is already in the repository.
 
-3. **Settings → Pages → Custom domain**: informe `bcp.romildo.net` e salve (ativa SSL automático).
+3. **Settings → Pages → Custom domain**: enter `bcp.romildo.net` and save (enables automatic SSL).
 
-4. No seu provedor de DNS, crie o registro apontando para o GitHub Pages:
+4. In your DNS provider, create the record pointing to GitHub Pages:
 
-   | Tipo  | Nome              | Valor                      |
-   |-------|-------------------|----------------------------|
-   | CNAME | `bcp`             | `SEU_USUARIO.github.io`    |
+   | Type  | Name | Value                   |
+   |-------|------|-------------------------|
+   | CNAME | `bcp` | `YOUR_USER.github.io`   |
 
-   (Ou registros `A` para os endereços IP atuais do GitHub Pages — veja a [documentação](https://docs.github.com/pt/pages/configuring-a-custom-domain-for-your-github-pages-site).)
+   (Or `A` records for GitHub Pages' current IP addresses — see the [documentation](https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site).)
 
-5. Aguarde o certificado SSL e acesse **<https://bcp.romildo.net>**.
+5. Wait for the SSL certificate and access **<https://bcp.romildo.net>**.
 
-## Notas técnicas
+## Technical notes
 
-- A comunicação é feita **direto pelo navegador** via **Web Serial API** — nenhum dado sai do seu computador. Protocolo baseado em `BC75XLT_Protocol.pdf` (Uniden) e no projeto [mateusza/bearcatctl](https://github.com/mateusza/bearcatctl).
-- **Protocolo**: linha de comando em ASCII terminada com `\r`, resposta terminada com `\r`, 57600 bps 8N1 (documentado no `BC75XLT_Protocol.pdf`).
-- O campo de frequência no rádio (`CIN`/`CSP`) usa unidades de **100 Hz** (MHz × 10000); o arquivo `.bc75xlt_ss` usa **Hz**.
-- O arquivo `.bc75xlt_ss` é texto com campos separados por **TAB** e linhas em **CRLF**, reproduzido fielmente na exportação.
-- Os lockouts globais são lidos do rádio (somente leitura por enquanto).
-- Referências: [mateusza/bearcatctl](https://github.com/mateusza/bearcatctl) e [skriebel/bc75xlt](https://github.com/skriebel/bc75xlt).
+- Communication happens **directly in the browser** via the **Web Serial API** — no data leaves your computer. Protocol based on `BC75XLT_Protocol.pdf` (Uniden) and on the [mateusza/bearcatctl](https://github.com/mateusza/bearcatctl) project.
+- **Protocol**: ASCII command line terminated with `\r`, response terminated with `\r`, 57600 bps 8N1 (documented in `BC75XLT_Protocol.pdf`).
+- The frequency field in the radio (`CIN`/`CSP`) uses **100 Hz** units (MHz × 10000); the `.bc75xlt_ss` file uses **Hz**.
+- The `.bc75xlt_ss` file is text with **TAB**-separated fields and **CRLF** line endings, faithfully reproduced on export.
+- Global lockouts are read from the radio (read-only for now).
+- References: [mateusza/bearcatctl](https://github.com/mateusza/bearcatctl) and [skriebel/bc75xlt](https://github.com/skriebel/bc75xlt).
 
-## Estrutura
+## Structure
 
 ```text
-├── index.html          # Página principal
-├── css/style.css       # Estilos
+├── index.html          # Main page
+├── css/style.css       # Styles
 ├── js/
-│   ├── protocol.js     # Web Serial + comandos do protocolo BC75XLT
-│   ├── configfile.js   # Parse/exportação do arquivo .bc75xlt_ss
-│   └── app.js          # Lógica da interface e operações de leitura/gravação
+│   ├── protocol.js     # Web Serial + BC75XLT protocol commands
+│   ├── configfile.js   # Parse/export of the .bc75xlt_ss file
+│   └── app.js          # UI logic and read/write operations
 ├── CNAME               # bcp.romildo.net
-└── referencias/        # Repositórios de referência (ignorados no git)
+└── referencias/        # Reference repositories (ignored by git)
 ```
 
-> ⚠️ **Aviso**: programe seu rádio com responsabilidade e dentro da legislação local de radioamadorismo/bandas.
+> ⚠️ **Disclaimer**: program your radio responsibly and within your local amateur radio / band legislation.
