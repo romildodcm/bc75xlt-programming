@@ -17,6 +17,7 @@ vm.runInThisContext(src('js/configfile.js'), { filename: 'configfile.js' });
 
 function findSampleFile() {
   const candidates = [
+    path.join(root, 'test', 'fixtures', 'sample.bc75xlt_ss'),
     path.join(root, '20230716-airband-updated.bc75xlt_ss'),
     path.join(root, 'referencias', '20230716-airband-updated.bc75xlt_ss'),
   ];

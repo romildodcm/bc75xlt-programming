@@ -31,6 +31,13 @@ python3 -m http.server 8000
 # abra http://localhost:8000
 ```
 
+Teste de round-trip do formato `.bc75xlt_ss` (usa o fixture sanitizado em `test/fixtures/` — dados fictícios, sem conteúdo real):
+
+```bash
+node test/roundtrip.test.js
+# Regenerar o fixture (opcional): node test/generate-fixture.js
+```
+
 ## Publicando no GitHub Pages + domínio `bcp.romildo.net`
 
 1. Crie um repositório no GitHub a partir desta pasta e faça o push:
