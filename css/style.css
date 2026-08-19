@@ -17,6 +17,30 @@
 
 [hidden] { display: none !important; }
 
+/* ---------- Barra de rolagem com as cores da página ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) var(--bg2);
+}
+*::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 7px;
+  border: 2px solid var(--bg2);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+*::-webkit-scrollbar-corner {
+  background: var(--bg2);
+}
+
 html, body {
   margin: 0;
   padding: 0;
