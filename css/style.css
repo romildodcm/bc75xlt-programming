@@ -594,6 +594,17 @@ input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px;
 }
 
 /* ---------- Rodapé (minimalista) ---------- */
+.seo-about {
+  padding: 12px 22px 2px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+.seo-about p { margin: 0 0 8px; }
+
 .site-footer {
   display: flex;
   align-items: center;

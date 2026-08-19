@@ -9,6 +9,7 @@ const I18N = {
   pt: {
     pageTitle: 'BC75XLT Web Programmer — Programar o rádio scanner pelo navegador',
     pageDesc: 'Programador web para o rádio scanner Uniden BC75XLT / UBC75XLT via Web Serial API: leia, edite e grave frequências e configurações direto pelo navegador, sem instalar software. Funciona no Chrome e Edge.',
+    seoAbout: 'Programador web gratuito para o rádio scanner Uniden BC75XLT / UBC75XLT: leia, edite e grave frequências e configurações direto pelo navegador usando a Web Serial API, sem instalar software. Canais de memória (300 canais em 10 bancos), pesquisa geral e customizada, Close Call, Service Search e lockouts — com arquivos .bc75xlt_ss compatíveis com o software original da Uniden. Funciona no Google Chrome e Microsoft Edge.',
     subtitle: 'Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT',
     connect: 'Conectar',
     connectTipOff: 'Conecte o rádio ao computador e escolha a porta serial',
@@ -133,6 +134,7 @@ const I18N = {
   en: {
     pageTitle: 'BC75XLT Web Programmer — Program your scanner radio from the browser',
     pageDesc: 'Web programmer for the Uniden BC75XLT / UBC75XLT scanner radio via Web Serial API: read, edit and write frequencies and settings directly from the browser, no software to install. Works on Chrome and Edge.',
+    seoAbout: 'Free web programmer for the Uniden BC75XLT / UBC75XLT scanner radio: read, edit and write frequencies and settings directly from the browser using the Web Serial API, no software to install. Memory channels (300 channels in 10 banks), general and custom search, Close Call, Service Search and lockouts — with .bc75xlt_ss files compatible with Uniden\'s original software. Works on Google Chrome and Microsoft Edge.',
     subtitle: 'Radio programmer via browser (Web Serial) — Uniden BC75XLT / UBC75XLT',
     connect: 'Connect',
     connectTipOff: 'Connect the radio to the computer and pick the serial port',
