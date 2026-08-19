@@ -75,9 +75,8 @@ function renderStatus() {
   const btn = $('#btn-connect');
   btn.classList.toggle('connected', connected);
   btn.title = connected
-    ? 'Rádio conectado — clique em Desconectar para trocar'
+    ? 'Clique para desconectar o rádio'
     : 'Conecte o rádio ao computador e escolha a porta serial';
-  $('#btn-disconnect').hidden = !connected;
   const canOp = connected && !state.busy;
   $('#btn-read').disabled = !canOp;
   $('#btn-write').disabled = !canOp;
@@ -237,6 +236,18 @@ function renderAll() {
 // ---------------------------------------------------------------------------
 
 async function onConnect() {
+  if (state.busy) {
+    toast('Aguarde a operação em andamento terminar.', 'error');
+    return;
+  }
+  // Se já estiver conectado, o clique desconecta
+  if (state.conn && state.conn.connected) {
+    await state.conn.close();
+    state.conn = null;
+    renderStatus();
+    toast('Desconectado.');
+    return;
+  }
   if (!ScannerConnection.supported()) {
     toast('Web Serial não suportado. Use Chrome ou Edge em uma página HTTPS.', 'error');
     return;
@@ -260,13 +271,6 @@ async function onConnect() {
   } catch (err) {
     toast(`Falha ao conectar: ${err.message}`, 'error');
   }
-}
-
-async function onDisconnect() {
-  if (state.conn) await state.conn.close();
-  state.conn = null;
-  renderStatus();
-  toast('Desconectado.');
 }
 
 // ---------------------------------------------------------------------------
@@ -531,7 +535,6 @@ function onImport(e) {
 
 function init() {
   $('#btn-connect').addEventListener('click', onConnect);
-  $('#btn-disconnect').addEventListener('click', onDisconnect);
   $('#btn-read').addEventListener('click', onRead);
   $('#btn-write').addEventListener('click', onWrite);
   $('#btn-import').addEventListener('click', () => $('#file-input').click());
