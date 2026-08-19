@@ -671,6 +671,17 @@ function init() {
     state.model.misc.sq = +e.target.value;
     $('#cfg-sql-label').textContent = e.target.value;
   });
+  $$('.step-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.step; // 'vol' | 'sql' (id no DOM)
+      const key = id === 'sql' ? 'sq' : id; // chave no model (misc.sq)
+      const dir = +btn.dataset.dir;
+      const next = Math.max(0, Math.min(15, (state.model.misc[key] || 0) + dir));
+      state.model.misc[key] = next;
+      $(`#cfg-${id}`).value = next;
+      $(`#cfg-${id}-label`).textContent = next;
+    });
+  });
   $('#cfg-gs-dly').addEventListener('change', (e) => { state.model.generalSearch.dly = e.target.value; });
   $('#cfg-gs-dir').addEventListener('change', (e) => { state.model.generalSearch.dir = e.target.value; });
   $('#cfg-cs-dly').addEventListener('change', (e) => { state.model.customSearch.dly = e.target.value; });
