@@ -648,9 +648,16 @@ function init() {
     else if (!$('#clear-modal').hidden) closeClearModal();
   });
 
-  $$('[data-tip]').forEach((el) => {
-    el.addEventListener('mouseenter', () => showTip(el));
-    el.addEventListener('mouseleave', hideTip);
+  document.addEventListener('mouseover', (e) => {
+    const wrap = e.target.closest('[data-tip]');
+    if (wrap) showTip(wrap);
+  });
+  document.addEventListener('mouseout', (e) => {
+    const from = e.target.closest('[data-tip]');
+    if (from) {
+      const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest('[data-tip]') : null;
+      if (to !== from) hideTip();
+    }
   });
   window.addEventListener('scroll', hideTip, true);
   window.addEventListener('resize', hideTip);
