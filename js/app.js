@@ -36,6 +36,22 @@ function parseMhz(text) {
   return Math.round(v * 1e6);
 }
 
+// Converte uma frequência colada (ex.: "121,500", "121.500", "121.5 MHz",
+// "121500000") para Hz. Aceita vírgula ou ponto decimal; valores > 1300 são
+// interpretados como Hz. Retorna null se inválida ou fora da faixa do rádio.
+function parsePastedFreq(text) {
+  let s = String(text).trim().replace(/\s+/g, '');
+  if (!s) return null;
+  s = s.replace(/mhz$/i, '').replace(/,/g, '.');
+  const v = parseFloat(s);
+  if (!Number.isFinite(v) || v <= 0) return null;
+  let mhz = v;
+  if (v > 1300) mhz = v / 1e6;
+  const freqHz = Math.round(mhz * 1e6);
+  if (freqHz < 25e6 || freqHz > 512e6) return null;
+  return freqHz;
+}
+
 function maskFreqInput(value) {
   let s = String(value).replace(/[^0-9.]/g, '');
   const dot = s.indexOf('.');
@@ -492,6 +508,44 @@ function confirmClearBank() {
   closeClearModal();
 }
 
+function openPasteModal() {
+  const bank = state.model.banks[state.activeBank];
+  let start = 1;
+  if (bank) {
+    const firstEmpty = bank.channels.findIndex((c) => c.freqHz === 0);
+    if (firstEmpty !== -1) start = firstEmpty + 1;
+  }
+  $('#paste-input').value = '';
+  $('#paste-start').value = start;
+  $('#paste-modal').hidden = false;
+  $('#paste-input').focus();
+}
+
+function closePasteModal() {
+  $('#paste-modal').hidden = true;
+}
+
+function confirmPaste() {
+  const bank = state.model.banks[state.activeBank];
+  closePasteModal();
+  if (!bank) return;
+  const start = Math.min(Math.max(parseInt($('#paste-start').value, 10) || 1, 1), 30);
+  const lines = $('#paste-input').value.split(/\r?\n/);
+  let written = 0;
+  let skipped = 0;
+  for (const raw of lines) {
+    const ch = bank.channels[start - 1 + written];
+    if (!ch) break;
+    const v = parsePastedFreq(raw);
+    if (v === null) { skipped++; continue; }
+    ch.freqHz = v;
+    written++;
+  }
+  renderBanks();
+  if (written > 0) toast(t('pasteResult', written, skipped));
+  else toast(t('pasteInvalid'), 'error');
+}
+
 async function confirmWrite() {
   const clearFirst = $('#modal-clear').checked;
   closeWriteModal();
@@ -646,6 +700,7 @@ function init() {
     if (!$('#write-modal').hidden) closeWriteModal();
     else if (!$('#help-modal').hidden) closeHelpModal();
     else if (!$('#clear-modal').hidden) closeClearModal();
+    else if (!$('#paste-modal').hidden) closePasteModal();
   });
 
   document.addEventListener('mouseover', (e) => {
@@ -745,6 +800,13 @@ function init() {
   $('#clear-modal-cancel').addEventListener('click', closeClearModal);
   $('#clear-modal').addEventListener('click', (e) => {
     if (e.target === $('#clear-modal')) closeClearModal();
+  });
+
+  $('#btn-paste').addEventListener('click', openPasteModal);
+  $('#paste-confirm').addEventListener('click', confirmPaste);
+  $('#paste-cancel').addEventListener('click', closePasteModal);
+  $('#paste-modal').addEventListener('click', (e) => {
+    if (e.target === $('#paste-modal')) closePasteModal();
   });
 
   $('#ch-tbody').addEventListener('change', (e) => {

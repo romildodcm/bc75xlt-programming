@@ -206,6 +206,7 @@
               <input type="checkbox" id="bank-enabled"> <span data-i18n="scan">Scan</span>
             </label>
             <div class="bank-tools">
+              <button id="btn-paste" class="btn btn-small" data-i18n-title="pasteTip" title="Colar frequências de uma planilha (Excel)"><span class="ms" aria-hidden="true">content_paste</span> <span data-i18n="paste">Colar</span></button>
               <button id="btn-clear-bank" class="btn btn-small" data-i18n-title="clearTip" title="Limpar as frequências do banco atual"><span class="ms" aria-hidden="true">delete_sweep</span> <span data-i18n="clear">Limpar</span></button>
             </div>
           </div>
@@ -274,6 +275,22 @@
       <div class="modal-actions">
         <button id="clear-modal-cancel" class="btn" data-i18n="cancel">Cancelar</button>
         <button id="clear-modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">delete_sweep</span> <span data-i18n="confirmClear">Limpar</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="paste-modal" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="paste-modal-title">
+      <h3 id="paste-modal-title"><span class="ms" aria-hidden="true">content_paste</span> <span data-i18n="pasteTitle">Colar frequências</span></h3>
+      <p class="modal-desc" data-i18n="pasteDesc">Cole uma coluna do Excel — uma frequência por linha (vírgula ou ponto como decimal). As frequências preenchem os canais a partir do canal escolhido abaixo.</p>
+      <textarea id="paste-input" rows="8" spellcheck="false" placeholder="121,500&#10;118,800&#10;120,300&#10;119,150"></textarea>
+      <label class="paste-start">
+        <span data-i18n="pasteStart">Iniciar no canal</span>
+        <input type="number" id="paste-start" min="1" max="30" value="1">
+      </label>
+      <div class="modal-actions">
+        <button id="paste-cancel" class="btn" data-i18n="cancel">Cancelar</button>
+        <button id="paste-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">content_paste</span> <span data-i18n="pasteConfirm">Colar</span></button>
       </div>
     </div>
   </div>
