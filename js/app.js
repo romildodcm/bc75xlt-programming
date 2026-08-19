@@ -7,6 +7,7 @@
 const state = {
   conn: null,
   model: defaultModel(),
+  view: 'bank', // 'config' | 'bank'
   activeBank: 0,
   busy: false,
 };
@@ -179,21 +180,32 @@ function renderGL() {
 }
 
 function renderBanks() {
-  const tabs = $('#bank-tabs');
-  tabs.innerHTML = '';
+  const tabs = $('#main-tabs');
+  // remove apenas as abas dinâmicas de banco (mantém a aba de configurações)
+  $$('#main-tabs .tab[data-bank]').forEach((t) => t.remove());
+
   state.model.banks.forEach((b) => {
     const count = b.channels.filter((c) => c.freqHz > 0).length;
     const tab = document.createElement('button');
     tab.type = 'button';
-    tab.className = 'tab' + (b.index - 1 === state.activeBank ? ' active' : '') + (b.enabled ? '' : ' off');
+    tab.className = 'tab' + (state.view === 'bank' && b.index - 1 === state.activeBank ? ' active' : '') + (b.enabled ? '' : ' off');
     tab.dataset.bank = b.index;
     tab.title = `${b.name} — ${count} canais${b.enabled ? '' : ' (desabilitado no scan)'}`;
     tab.textContent = b.index;
     tabs.appendChild(tab);
   });
+
+  const cfgTab = tabs.querySelector('.tab[data-view="config"]');
+  if (cfgTab) cfgTab.className = 'tab' + (state.view === 'config' ? ' active' : '');
+
+  const inConfig = state.view === 'config';
+  $('#view-config').hidden = !inConfig;
+  $('#view-bank').hidden = inConfig;
+  $('#bank-tools').hidden = inConfig;
+
   const active = state.model.banks[state.activeBank];
   $('#bank-enabled').checked = !!active && active.enabled;
-  renderBankTable();
+  if (!inConfig) renderBankTable();
 }
 
 function renderBankTable() {
@@ -579,11 +591,19 @@ function init() {
     state.model.closeCallBands[idx] = e.target.checked ? 'On' : 'Off';
   });
 
-  $('#bank-tabs').addEventListener('click', (e) => {
+  $('#main-tabs').addEventListener('click', (e) => {
+    const viewBtn = e.target.closest('[data-view]');
+    if (viewBtn) {
+      state.view = 'config';
+      renderBanks();
+      return;
+    }
     const tab = e.target.closest('[data-bank]');
-    if (!tab) return;
-    state.activeBank = +tab.dataset.bank - 1;
-    renderBanks();
+    if (tab) {
+      state.view = 'bank';
+      state.activeBank = +tab.dataset.bank - 1;
+      renderBanks();
+    }
   });
 
   $('#btn-clear-bank').addEventListener('click', () => {

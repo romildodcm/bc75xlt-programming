@@ -54,111 +54,117 @@
   </section>
 
   <main class="layout">
-    <aside class="config-panel">
-      <h2>⚙️ Configurações</h2>
-
-      <section class="cfg-section">
-        <h3>Rádio</h3>
-        <div class="cfg-grid">
-          <div class="field"><label>Modelo</label><span id="info-model" class="value">—</span></div>
-          <div class="field"><label>Firmware</label><span id="info-firmware" class="value">—</span></div>
-          <div class="field"><label>Band Plan</label>
-            <select id="cfg-bandplan">
-              <option value="USA">USA</option>
-              <option value="Canada">Canada</option>
-            </select>
-          </div>
-          <div class="field"><label>Prioridade</label>
-            <select id="cfg-priority">
-              <option value="Off">Off</option>
-              <option value="On">On</option>
-              <option value="Plus">Plus On</option>
-              <option value="DND">DND</option>
-            </select>
-          </div>
-          <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-keylock"> Key Lock</label></div>
-          <div class="field"><label>Volume <b id="cfg-vol-label">4</b></label><input type="range" id="cfg-vol" min="0" max="15" step="1"></div>
-          <div class="field"><label>Squelch <b id="cfg-sql-label">7</b></label><input type="range" id="cfg-sql" min="0" max="15" step="1"></div>
-        </div>
-      </section>
-
-      <section class="cfg-section">
-        <h3>Pesquisa geral</h3>
-        <div class="cfg-grid">
-          <div class="field"><label>Delay</label>
-            <select id="cfg-gs-dly"></select>
-          </div>
-          <div class="field"><label>Direção</label>
-            <select id="cfg-gs-dir"></select>
-          </div>
-        </div>
-      </section>
-
-      <section class="cfg-section">
-        <h3>Pesquisa customizada</h3>
-        <p class="hint">Delay/direção das faixas customizadas e até 10 faixas de frequência (CSG/CSP).</p>
-        <div class="cfg-grid">
-          <div class="field"><label>Delay</label>
-            <select id="cfg-cs-dly"></select>
-          </div>
-          <div class="field"><label>Direção</label>
-            <select id="cfg-cs-dir"></select>
-          </div>
-        </div>
-        <div id="custom-ranges" class="ranges"></div>
-      </section>
-
-      <section class="cfg-section">
-        <h3>Close Call</h3>
-        <div class="cfg-grid">
-          <div class="field"><label>Modo</label>
-            <select id="cfg-cc-mode">
-              <option value="Off">Off</option>
-              <option value="CC PRI">CC PRI</option>
-              <option value="CC DND">CC DND</option>
-            </select>
-          </div>
-          <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-cc-beep"> Alerta sonoro</label></div>
-          <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-cc-light"> Alerta visual</label></div>
-        </div>
-        <div id="cc-bands" class="chips"></div>
-      </section>
-
-      <section class="cfg-section">
-        <h3>Serviços (Service Search)</h3>
-        <div id="services-list" class="services"></div>
-      </section>
-
-      <details id="global-lockout-details" class="cfg-section">
-        <summary>🔒 Lockouts globais (<span id="gl-count">0</span>)</summary>
-        <ul id="gl-list" class="gl-list"></ul>
-      </details>
-    </aside>
-
     <section class="banks-panel">
       <div class="banks-header">
-        <h2 class="banks-title">Bancos de memória</h2>
+        <h2 class="banks-title">Rádio BC75XLT</h2>
       </div>
+
       <div class="banks-toolbar">
-        <div id="bank-tabs" class="tabs"></div>
-        <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
-          <input type="checkbox" id="bank-enabled"> Habilitado no scan
-        </label>
-        <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar</button>
+        <div id="main-tabs" class="tabs">
+          <button type="button" class="tab" data-view="config" title="Configurações do rádio">⚙️ Configurações</button>
+        </div>
+        <div id="bank-tools" class="bank-tools">
+          <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
+            <input type="checkbox" id="bank-enabled"> Habilitado no scan
+          </label>
+          <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual">🧹 Limpar</button>
+        </div>
       </div>
-      <div class="bank-content">
-        <table class="ch-table">
-          <thead>
-            <tr>
-              <th class="ch-num">CH</th>
-              <th>Frequência (MHz)</th>
-              <th title="Delay">DLY</th>
-              <th title="Lockout">LOCK</th>
-              <th title="Priority">PRI</th>
-            </tr>
-          </thead>
-          <tbody id="ch-tbody"></tbody>
-        </table>
+
+      <div id="view-config" class="view config-view" hidden>
+        <section class="cfg-section">
+          <h3>Rádio</h3>
+          <div class="cfg-grid">
+            <div class="field"><label>Modelo</label><span id="info-model" class="value">—</span></div>
+            <div class="field"><label>Firmware</label><span id="info-firmware" class="value">—</span></div>
+            <div class="field"><label>Band Plan</label>
+              <select id="cfg-bandplan">
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+              </select>
+            </div>
+            <div class="field"><label>Prioridade</label>
+              <select id="cfg-priority">
+                <option value="Off">Off</option>
+                <option value="On">On</option>
+                <option value="Plus">Plus On</option>
+                <option value="DND">DND</option>
+              </select>
+            </div>
+            <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-keylock"> Key Lock</label></div>
+            <div class="field"><label>Volume <b id="cfg-vol-label">4</b></label><input type="range" id="cfg-vol" min="0" max="15" step="1"></div>
+            <div class="field"><label>Squelch <b id="cfg-sql-label">7</b></label><input type="range" id="cfg-sql" min="0" max="15" step="1"></div>
+          </div>
+        </section>
+
+        <section class="cfg-section">
+          <h3>Pesquisa geral</h3>
+          <div class="cfg-grid">
+            <div class="field"><label>Delay</label>
+              <select id="cfg-gs-dly"></select>
+            </div>
+            <div class="field"><label>Direção</label>
+              <select id="cfg-gs-dir"></select>
+            </div>
+          </div>
+        </section>
+
+        <section class="cfg-section">
+          <h3>Pesquisa customizada</h3>
+          <p class="hint">Delay/direção das faixas customizadas e até 10 faixas de frequência (CSG/CSP).</p>
+          <div class="cfg-grid">
+            <div class="field"><label>Delay</label>
+              <select id="cfg-cs-dly"></select>
+            </div>
+            <div class="field"><label>Direção</label>
+              <select id="cfg-cs-dir"></select>
+            </div>
+          </div>
+          <div id="custom-ranges" class="ranges"></div>
+        </section>
+
+        <section class="cfg-section">
+          <h3>Close Call</h3>
+          <div class="cfg-grid">
+            <div class="field"><label>Modo</label>
+              <select id="cfg-cc-mode">
+                <option value="Off">Off</option>
+                <option value="CC PRI">CC PRI</option>
+                <option value="CC DND">CC DND</option>
+              </select>
+            </div>
+            <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-cc-beep"> Alerta sonoro</label></div>
+            <div class="field"><label class="chk-inline"><input type="checkbox" id="cfg-cc-light"> Alerta visual</label></div>
+          </div>
+          <div id="cc-bands" class="chips"></div>
+        </section>
+
+        <section class="cfg-section">
+          <h3>Serviços (Service Search)</h3>
+          <div id="services-list" class="services"></div>
+        </section>
+
+        <details id="global-lockout-details" class="cfg-section">
+          <summary>🔒 Lockouts globais (<span id="gl-count">0</span>)</summary>
+          <ul id="gl-list" class="gl-list"></ul>
+        </details>
+      </div>
+
+      <div id="view-bank" class="view bank-view">
+        <div class="bank-content">
+          <table class="ch-table">
+            <thead>
+              <tr>
+                <th class="ch-num">CH</th>
+                <th>Frequência (MHz)</th>
+                <th title="Delay">DLY</th>
+                <th title="Lockout">LOCK</th>
+                <th title="Priority">PRI</th>
+              </tr>
+            </thead>
+            <tbody id="ch-tbody"></tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
