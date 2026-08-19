@@ -139,11 +139,11 @@
 
       <div id="view-bank" class="view bank-view">
         <div class="bank-toolbar">
+          <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
+            <input type="checkbox" id="bank-enabled"> Scan
+          </label>
           <div id="bank-tabs" class="sub-tabs"></div>
           <div class="bank-tools">
-            <label class="chk-inline" title="Habilitar/desabilitar este banco no scan (comando SCG)">
-              <input type="checkbox" id="bank-enabled"> Habilitado no scan
-            </label>
             <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar</button>
           </div>
         </div>
@@ -153,9 +153,9 @@
               <tr>
                 <th class="ch-num">CH</th>
                 <th>Frequência (MHz)</th>
-                <th title="Delay">DLY</th>
-                <th title="Lockout">LOCK</th>
-                <th title="Priority">PRI</th>
+                <th data-tip="Delay: pausa a varredura por 2 segundos ao receber uma transmissão">DLY</th>
+                <th data-tip="Lockout: ignora este canal durante a varredura">LOCK</th>
+                <th data-tip="Prioridade: monitora este canal com prioridade durante a varredura">PRI</th>
               </tr>
             </thead>
             <tbody id="ch-tbody"></tbody>
@@ -202,6 +202,17 @@
       <p class="help-note">A comunicação é feita direto pelo navegador (Web Serial API) — nenhum dado sai do seu computador. Requer <b>Chrome</b> ou <b>Edge</b> em uma página HTTPS.</p>
       <div class="modal-actions">
         <button id="help-modal-close" class="btn btn-primary">Entendi</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="clear-modal" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="clear-modal-title">
+      <h3 id="clear-modal-title"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar banco</h3>
+      <p class="modal-desc" id="clear-modal-desc">Tem certeza que deseja apagar as frequências deste banco?</p>
+      <div class="modal-actions">
+        <button id="clear-modal-cancel" class="btn">Cancelar</button>
+        <button id="clear-modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar</button>
       </div>
     </div>
   </div>

@@ -36,6 +36,18 @@ function parseMhz(text) {
   return Math.round(v * 1e6);
 }
 
+function maskFreqInput(value) {
+  let s = String(value).replace(/[^0-9.]/g, '');
+  const dot = s.indexOf('.');
+  if (dot === -1) {
+    // sem ponto: insere automaticamente após 3 dígitos (ex.: 1215 -> 121.5)
+    return s.length > 3 ? s.slice(0, 3) + '.' + s.slice(3, 7) : s;
+  }
+  const intPart = s.slice(0, dot).replace(/\./g, '').slice(0, 3);
+  const decPart = s.slice(dot + 1).replace(/\./g, '').slice(0, 4);
+  return intPart + (decPart ? '.' + decPart : '.');
+}
+
 function delayOpts(cur) {
   return DELAY_VALUES.map((v) => (
     `<option value="${v}" ${v === cur ? 'selected' : ''}>${v === 'Off' ? 'Off' : v + ' s'}</option>`
@@ -452,6 +464,29 @@ function closeHelpModal() {
   $('#help-modal').hidden = true;
 }
 
+function openClearModal() {
+  const bank = state.model.banks[state.activeBank];
+  $('#clear-modal-desc').textContent = bank
+    ? `Tem certeza que deseja apagar todas as frequências do ${bank.name} (canais ${bank.index})?`
+    : 'Tem certeza que deseja apagar as frequências deste banco?';
+  $('#clear-modal').hidden = false;
+  $('#clear-modal-confirm').focus();
+}
+
+function closeClearModal() {
+  $('#clear-modal').hidden = true;
+}
+
+function confirmClearBank() {
+  const bank = state.model.banks[state.activeBank];
+  if (bank) {
+    bank.channels.forEach((c) => { c.freqHz = 0; });
+    renderBanks();
+    toast(`Banco ${bank.index} limpo.`);
+  }
+  closeClearModal();
+}
+
 async function confirmWrite() {
   const clearFirst = $('#modal-clear').checked;
   closeWriteModal();
@@ -604,11 +639,12 @@ function init() {
     if (e.key !== 'Escape') return;
     if (!$('#write-modal').hidden) closeWriteModal();
     else if (!$('#help-modal').hidden) closeHelpModal();
+    else if (!$('#clear-modal').hidden) closeClearModal();
   });
 
-  $$('.icon-wrap[data-tip]').forEach((wrap) => {
-    wrap.addEventListener('mouseenter', () => showTip(wrap));
-    wrap.addEventListener('mouseleave', hideTip);
+  $$('[data-tip]').forEach((el) => {
+    el.addEventListener('mouseenter', () => showTip(el));
+    el.addEventListener('mouseleave', hideTip);
   });
   window.addEventListener('scroll', hideTip, true);
   window.addEventListener('resize', hideTip);
@@ -651,6 +687,13 @@ function init() {
     else if (t.dataset.rangeHigh !== undefined) c.upper = parseMhz(t.value) || 0;
   });
 
+  $('#custom-ranges').addEventListener('input', (e) => {
+    const t = e.target;
+    if (t.dataset.rangeLow !== undefined || t.dataset.rangeHigh !== undefined) {
+      t.value = maskFreqInput(t.value);
+    }
+  });
+
   $('#services-list').addEventListener('change', (e) => {
     const t = e.target;
     const idx = +(t.dataset.svcDly ?? t.dataset.svcDir);
@@ -680,13 +723,11 @@ function init() {
     renderBanks();
   });
 
-  $('#btn-clear-bank').addEventListener('click', () => {
-    const bank = state.model.banks[state.activeBank];
-    if (bank) {
-      bank.channels.forEach((c) => { c.freqHz = 0; });
-      renderBanks();
-      toast(`Banco ${bank.index} limpo.`);
-    }
+  $('#btn-clear-bank').addEventListener('click', openClearModal);
+  $('#clear-modal-confirm').addEventListener('click', confirmClearBank);
+  $('#clear-modal-cancel').addEventListener('click', closeClearModal);
+  $('#clear-modal').addEventListener('click', (e) => {
+    if (e.target === $('#clear-modal')) closeClearModal();
   });
 
   $('#ch-tbody').addEventListener('change', (e) => {
@@ -709,6 +750,12 @@ function init() {
       ch.lo = t.checked ? '1' : '0';
     } else if (t.classList.contains('ch-prio')) {
       ch.prio = t.checked ? 'On' : 'Off';
+    }
+  });
+
+  $('#ch-tbody').addEventListener('input', (e) => {
+    if (e.target.classList.contains('freq-input')) {
+      e.target.value = maskFreqInput(e.target.value);
     }
   });
 
