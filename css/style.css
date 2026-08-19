@@ -265,14 +265,8 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
 /* Chips (bancos / faixas cc) */
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 
-/* Bandas de frequência do Close Call: pílulas espaçadas dentro do card */
-#cc-bands {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 12px;
-  margin-top: 14px;
-}
-#cc-bands .mini {
+/* Pílulas de checkbox (bandas do Close Call e alertas) */
+.pill-chk {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -287,12 +281,18 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
   max-width: 100%;
   transition: 0.15s;
 }
-#cc-bands .mini:hover { border-color: var(--accent); color: var(--text); }
-#cc-bands .mini:has(input:checked) {
+.pill-chk:hover { border-color: var(--accent); color: var(--text); }
+.pill-chk:has(input:checked) {
   background: rgba(52, 211, 153, 0.12);
   border-color: var(--green);
   color: var(--green);
   font-weight: 600;
+}
+#cc-bands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin-top: 14px;
 }
 .chip {
   cursor: pointer;

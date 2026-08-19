@@ -178,7 +178,7 @@ function renderCCBands() {
   RADIO.CC_BAND_BITS.forEach((name, i) => {
     if (i === 1) return;
     const label = document.createElement('label');
-    label.className = 'mini';
+    label.className = 'pill-chk';
     label.title = name;
     const cb = document.createElement('input');
     cb.type = 'checkbox';
