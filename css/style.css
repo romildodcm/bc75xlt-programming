@@ -264,7 +264,36 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
 
 /* Chips (bancos / faixas cc) */
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-#cc-bands { margin-top: 14px; }
+
+/* Bandas de frequência do Close Call: pílulas espaçadas dentro do card */
+#cc-bands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin-top: 14px;
+}
+#cc-bands .mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  padding: 6px 13px;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  max-width: 100%;
+  transition: 0.15s;
+}
+#cc-bands .mini:hover { border-color: var(--accent); color: var(--text); }
+#cc-bands .mini:has(input:checked) {
+  background: rgba(52, 211, 153, 0.12);
+  border-color: var(--green);
+  color: var(--green);
+  font-weight: 600;
+}
 .chip {
   cursor: pointer;
   border: 1px solid var(--line);
