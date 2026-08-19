@@ -7,6 +7,8 @@
 
 const I18N = {
   pt: {
+    pageTitle: 'BC75XLT Web Programmer — Programar o rádio scanner pelo navegador',
+    pageDesc: 'Programador web para o rádio scanner Uniden BC75XLT / UBC75XLT via Web Serial API: leia, edite e grave frequências e configurações direto pelo navegador, sem instalar software. Funciona no Chrome e Edge.',
     subtitle: 'Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT',
     connect: 'Conectar',
     connectTipOff: 'Conecte o rádio ao computador e escolha a porta serial',
@@ -121,6 +123,8 @@ const I18N = {
   },
 
   en: {
+    pageTitle: 'BC75XLT Web Programmer — Program your scanner radio from the browser',
+    pageDesc: 'Web programmer for the Uniden BC75XLT / UBC75XLT scanner radio via Web Serial API: read, edit and write frequencies and settings directly from the browser, no software to install. Works on Chrome and Edge.',
     subtitle: 'Radio programmer via browser (Web Serial) — Uniden BC75XLT / UBC75XLT',
     connect: 'Connect',
     connectTipOff: 'Connect the radio to the computer and pick the serial port',
@@ -277,6 +281,12 @@ function applyLang() {
     const wrap = langBtn.closest('.icon-wrap');
     if (wrap) wrap.setAttribute('data-tip', t('langTip'));
   }
+  document.title = t('pageTitle');
+  document.querySelector('meta[name="description"]')?.setAttribute('content', t('pageDesc'));
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', t('pageTitle'));
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', t('pageDesc'));
+  document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', t('pageTitle'));
+  document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', t('pageDesc'));
   document.documentElement.lang = LANG;
 }
 

@@ -17,6 +17,20 @@
 
 [hidden] { display: none !important; }
 
+/* Apenas leitores de tela / SEO (invisível visualmente) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---------- Barra de rolagem com as cores da página ---------- */
 html {
   scrollbar-width: thin;

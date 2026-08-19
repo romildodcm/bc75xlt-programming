@@ -3,12 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BC75XLT — Web Programmer</title>
+  <title>BC75XLT Web Programmer — Programar o rádio scanner pelo navegador</title>
+  <meta name="description" content="Programador web para o rádio scanner Uniden BC75XLT / UBC75XLT via Web Serial API: leia, edite e grave frequências e configurações direto pelo navegador, sem instalar software. Funciona no Chrome e Edge.">
+  <meta name="keywords" content="BC75XLT, UBC75XLT, Uniden, scanner, programador de rádio, Web Serial, frequências, radio scanner, programar scanner">
+  <meta name="author" content="PU5XRM (Romildo)">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0f1420">
+  <link rel="canonical" href="https://bcp.romildo.net/">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BC75XLT Web Programmer">
+  <meta property="og:title" content="BC75XLT Web Programmer — Programar o rádio scanner pelo navegador">
+  <meta property="og:description" content="Programador web para o Uniden BC75XLT / UBC75XLT via Web Serial: leia, edite e grave frequências direto pelo navegador, sem instalar nada.">
+  <meta property="og:url" content="https://bcp.romildo.net/">
+  <meta property="og:image" content="https://bcp.romildo.net/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BC75XLT Web Programmer — Programar o rádio scanner pelo navegador">
+  <meta name="twitter:description" content="Programador web para o Uniden BC75XLT / UBC75XLT via Web Serial: leia, edite e grave frequências direto pelo navegador.">
+  <meta name="twitter:image" content="https://bcp.romildo.net/og-image.png">
+
+  <!-- Dados estruturados (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BC75XLT Web Programmer",
+    "alternateName": "BC75XLT Programador Web",
+    "url": "https://bcp.romildo.net/",
+    "description": "Programador web para o rádio scanner Uniden BC75XLT / UBC75XLT via Web Serial API. Leia, edite e grave frequências e configurações direto pelo navegador, sem instalar software.",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any (web browser)",
+    "browserRequirements": "Requires Web Serial API (Chrome or Edge) and HTTPS",
+    "softwareVersion": "1.0",
+    "inLanguage": ["pt-BR", "en"],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+    "author": { "@type": "Person", "name": "PU5XRM", "url": "https://romildo.net" },
+    "keywords": "BC75XLT, UBC75XLT, Uniden, scanner, programador de rádio, Web Serial, frequências"
+  }
+  </script>
 </head>
 <body>
 
@@ -59,6 +102,7 @@
       </div>
 
       <div id="view-config" class="view config-view">
+        <h2 class="sr-only" data-i18n="tabConfig">Configurações</h2>
         <section class="cfg-section">
           <h3 data-i18n-tip="radioTip" data-i18n="secRadio">Rádio</h3>
           <div class="cfg-grid">
@@ -152,6 +196,7 @@
       </div>
 
       <div id="view-bank" class="view bank-view" hidden>
+        <h2 class="sr-only" data-i18n="tabBanks">Bancos de memória</h2>
         <div class="bank-toolbar">
           <div id="bank-tabs" class="sub-tabs"></div>
         </div>
