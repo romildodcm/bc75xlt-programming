@@ -230,13 +230,13 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
 .banks-header { padding: 12px 16px 0; }
 .banks-title { margin: 0; font-size: 16px; }
 
-/* ---------- Abas principais estilo planilha (Excel) ---------- */
+/* ---------- Abas principais estilo planilha (Excel) no topo ---------- */
 .sheet-tabs {
   display: flex;
   gap: 6px;
-  padding: 10px 14px 12px;
+  padding: 10px 14px 0;
   background: var(--bg2);
-  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .sheet-tab {
   appearance: none;
@@ -249,6 +249,9 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
   font-size: 13px;
   font-weight: 600;
   transition: 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .sheet-tab:hover { border-color: var(--accent); color: var(--text); }
 .sheet-tab.active {
@@ -259,7 +262,7 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
   font-weight: 700;
   position: relative;
   top: 1px;
-  margin-bottom: -2px;
+  margin-bottom: -1px;
 }
 
 /* ---------- Sub-abas dos bancos (dentro da aba Bancos) ---------- */
@@ -332,6 +335,28 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
 .freq-input.invalid { border-color: var(--red); color: var(--red); }
 
 input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+
+/* ---------- Ícones Material Symbols ---------- */
+.ms {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+  vertical-align: -4px;
+}
+.btn .ms, .sheet-tab .ms, .banner .ms { margin-right: 6px; vertical-align: -5px; }
+.btn-small .ms { font-size: 16px; margin-right: 4px; vertical-align: -4px; }
+.brand h1 .ms { font-size: 24px; vertical-align: -5px; margin-right: 4px; color: var(--accent); }
+.cfg-section summary .ms { margin-right: 4px; color: var(--accent); }
 
 /* ---------- Rodapé ---------- */
 footer {
