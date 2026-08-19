@@ -18,6 +18,12 @@
     </div>
     <div class="conn">
       <span id="serial-status" class="badge off">Desconectado</span>
+      <span class="icon-wrap" data-tip="Ler do rádio — carrega as configurações e as 300 frequências do rádio para a página.">
+        <button id="btn-read" class="icon-btn btn-accent" disabled aria-label="Ler do rádio"><span class="ms" aria-hidden="true">download</span></button>
+      </span>
+      <span class="icon-wrap" data-tip="Gravar no rádio — envia as configurações e frequências da página para o rádio.">
+        <button id="btn-write" class="icon-btn btn-accent" disabled aria-label="Gravar no rádio"><span class="ms" aria-hidden="true">upload</span></button>
+      </span>
       <button id="btn-connect" class="btn btn-primary"><span class="ms" aria-hidden="true">usb</span> Conectar rádio</button>
       <button id="btn-disconnect" class="btn" hidden><span class="ms" aria-hidden="true">link_off</span> Desconectar</button>
     </div>
@@ -41,9 +47,7 @@
 
   <section class="actions-bar">
     <div class="actions-left">
-      <button id="btn-read" class="btn btn-accent" disabled><span class="ms" aria-hidden="true">download</span> Ler do rádio</button>
-      <button id="btn-write" class="btn btn-accent" disabled><span class="ms" aria-hidden="true">upload</span> Gravar no rádio</button>
-      <label class="chk-inline" title="Executa o comando CLR antes de gravar (apaga toda a memória)"><input type="checkbox" id="chk-clear"> limpar antes</label>
+      <label class="chk-inline" title="Executa o comando CLR antes de gravar (apaga toda a memória)"><input type="checkbox" id="chk-clear"> limpar antes de gravar</label>
     </div>
     <div class="actions-right">
       <button id="btn-import" class="btn"><span class="ms" aria-hidden="true">folder_open</span> Importar arquivo</button>
