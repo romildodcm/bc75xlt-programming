@@ -211,6 +211,9 @@ function renderGL() {
   });
 }
 
+const WIDE_QUERY = '(min-width: 1200px)';
+function isWide() { return window.matchMedia(WIDE_QUERY).matches; }
+
 function renderBanks() {
   // abas principais estilo planilha (Configurações | Bancos de memória)
   $$('.sheet-tab').forEach((t) => t.classList.toggle('active', t.dataset.view === state.view));
@@ -230,12 +233,18 @@ function renderBanks() {
   });
 
   const inConfig = state.view === 'config';
-  $('#view-config').hidden = !inConfig;
-  $('#view-bank').hidden = inConfig;
+  if (isWide()) {
+    // tela larga: mostra as duas abas lado a lado
+    $('#view-config').hidden = false;
+    $('#view-bank').hidden = false;
+  } else {
+    $('#view-config').hidden = !inConfig;
+    $('#view-bank').hidden = inConfig;
+  }
 
   const active = state.model.banks[state.activeBank];
   $('#bank-enabled').checked = !!active && active.enabled;
-  if (!inConfig) renderBankTable();
+  renderBankTable();
 }
 
 function renderBankTable() {
@@ -648,6 +657,8 @@ function init() {
   });
   window.addEventListener('scroll', hideTip, true);
   window.addEventListener('resize', hideTip);
+  const mq = window.matchMedia(WIDE_QUERY);
+  if (mq.addEventListener) mq.addEventListener('change', renderBanks);
 
   $('#cfg-bandplan').addEventListener('change', (e) => { state.model.misc.bandPlan = e.target.value; });
   $('#cfg-priority').addEventListener('change', (e) => { state.model.priority = e.target.value; });
