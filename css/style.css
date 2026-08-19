@@ -279,6 +279,8 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
   color: var(--muted);
   white-space: nowrap;
   max-width: 100%;
+  width: fit-content;
+  align-self: flex-start;
   transition: 0.15s;
 }
 .pill-chk:hover { border-color: var(--accent); color: var(--text); }

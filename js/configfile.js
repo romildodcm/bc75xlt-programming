@@ -58,7 +58,7 @@ function defaultModel() {
     customSearch: { dly: '2', dir: 'Up' },
     customs,
     closeCall: { mode: 'Off', altBeep: 'Off', altLight: 'Off' },
-    closeCallBands: ['On', 'On', 'On', '', 'On'],
+    closeCallBands: ['Off', '', 'Off', 'Off', 'Off'],
     generalSearch: { dly: '2', dir: 'Up' },
     banks,
     globalLockouts: [],
