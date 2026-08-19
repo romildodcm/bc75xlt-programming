@@ -124,9 +124,7 @@ function renderInfo() {
   $('#cfg-bandplan').value = m.misc.bandPlan;
   $('#cfg-priority').value = m.priority;
   $('#cfg-keylock').checked = m.misc.keyLock;
-  $('#cfg-vol').value = m.misc.vol;
   $('#cfg-vol-label').textContent = m.misc.vol;
-  $('#cfg-sql').value = m.misc.sq;
   $('#cfg-sql-label').textContent = m.misc.sq;
   $('#cfg-gs-dly').innerHTML = delayOpts(m.generalSearch.dly);
   $('#cfg-gs-dir').innerHTML = dirOpts(m.generalSearch.dir);
@@ -663,14 +661,6 @@ function init() {
   $('#cfg-bandplan').addEventListener('change', (e) => { state.model.misc.bandPlan = e.target.value; });
   $('#cfg-priority').addEventListener('change', (e) => { state.model.priority = e.target.value; });
   $('#cfg-keylock').addEventListener('change', (e) => { state.model.misc.keyLock = e.target.checked; });
-  $('#cfg-vol').addEventListener('input', (e) => {
-    state.model.misc.vol = +e.target.value;
-    $('#cfg-vol-label').textContent = e.target.value;
-  });
-  $('#cfg-sql').addEventListener('input', (e) => {
-    state.model.misc.sq = +e.target.value;
-    $('#cfg-sql-label').textContent = e.target.value;
-  });
   $$('.step-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.step; // 'vol' | 'sql' (id no DOM)
@@ -678,7 +668,6 @@ function init() {
       const dir = +btn.dataset.dir;
       const next = Math.max(0, Math.min(15, (state.model.misc[key] || 0) + dir));
       state.model.misc[key] = next;
-      $(`#cfg-${id}`).value = next;
       $(`#cfg-${id}-label`).textContent = next;
     });
   });
