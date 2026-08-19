@@ -7,7 +7,7 @@
 const state = {
   conn: null,
   model: defaultModel(),
-  view: 'bank', // 'config' | 'bank'
+  view: 'config', // 'config' | 'bank'
   activeBank: 0,
   busy: false,
 };

@@ -50,11 +50,11 @@
   <main class="layout">
     <section class="banks-panel">
       <div class="sheet-tabs" role="tablist">
-        <button type="button" class="sheet-tab" data-view="config" role="tab" title="Configurações gerais do rádio"><span class="ms" aria-hidden="true">settings</span> Configurações</button>
+        <button type="button" class="sheet-tab active" data-view="config" role="tab" title="Configurações gerais do rádio"><span class="ms" aria-hidden="true">settings</span> Configurações</button>
         <button type="button" class="sheet-tab" data-view="bank" role="tab" title="Bancos de memória com as frequências"><span class="ms" aria-hidden="true">grid_view</span> Bancos de memória</button>
       </div>
 
-      <div id="view-config" class="view config-view" hidden>
+      <div id="view-config" class="view config-view">
         <section class="cfg-section">
           <h3>Rádio</h3>
           <div class="cfg-grid">
@@ -133,7 +133,7 @@
         </details>
       </div>
 
-      <div id="view-bank" class="view bank-view">
+      <div id="view-bank" class="view bank-view" hidden>
         <div class="bank-toolbar">
           <div id="bank-tabs" class="sub-tabs"></div>
         </div>
