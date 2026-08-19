@@ -122,6 +122,13 @@ button { font: inherit; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: #04121f; font-weight: 700; }
 .btn-primary:hover:not(:disabled) { background: #7dd3fc; border-color: #7dd3fc; }
+.btn-primary.connected {
+  background: var(--green);
+  border-color: var(--green);
+  color: #04121f;
+  cursor: default;
+}
+.btn-primary.connected:disabled { opacity: 1; }
 .btn-accent { background: linear-gradient(135deg, var(--accent), var(--accent2)); border-color: transparent; color: #04121f; font-weight: 700; }
 .btn-accent:hover:not(:disabled) { filter: brightness(1.08); }
 .btn-small { padding: 5px 10px; font-size: 12.5px; }

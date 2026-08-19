@@ -17,14 +17,13 @@
       <p class="subtitle">Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT</p>
     </div>
     <div class="conn">
-      <span id="serial-status" class="badge off">Desconectado</span>
+      <button id="btn-connect" class="btn btn-primary"><span class="ms" aria-hidden="true">usb</span> Conectar rádio</button>
       <span class="icon-wrap" data-tip="Ler do rádio — carrega as configurações e as 300 frequências do rádio para a página.">
         <button id="btn-read" class="icon-btn btn-accent" disabled aria-label="Ler do rádio"><span class="ms" aria-hidden="true">download</span></button>
       </span>
       <span class="icon-wrap" data-tip="Gravar no rádio — envia as configurações e frequências da página para o rádio.">
         <button id="btn-write" class="icon-btn btn-accent" disabled aria-label="Gravar no rádio"><span class="ms" aria-hidden="true">upload</span></button>
       </span>
-      <button id="btn-connect" class="btn btn-primary"><span class="ms" aria-hidden="true">usb</span> Conectar rádio</button>
       <button id="btn-disconnect" class="btn" hidden><span class="ms" aria-hidden="true">link_off</span> Desconectar</button>
     </div>
   </header>

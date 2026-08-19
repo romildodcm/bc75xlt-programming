@@ -72,10 +72,18 @@ function assertOk(line, ctx) {
 
 function renderStatus() {
   const connected = !!state.conn && state.conn.connected;
-  const badge = $('#serial-status');
-  badge.textContent = connected ? 'Conectado' : 'Desconectado';
-  badge.className = 'badge ' + (connected ? 'ok' : 'off');
-  $('#btn-connect').hidden = connected;
+  const btn = $('#btn-connect');
+  if (connected) {
+    btn.disabled = true;
+    btn.classList.add('connected');
+    btn.title = 'Rádio conectado — clique em Desconectar para trocar';
+    btn.innerHTML = '<span class="ms" aria-hidden="true">check_circle</span> Conectado';
+  } else {
+    btn.disabled = false;
+    btn.classList.remove('connected');
+    btn.title = 'Conecte o rádio ao computador e escolha a porta serial';
+    btn.innerHTML = '<span class="ms" aria-hidden="true">usb</span> Conectar rádio';
+  }
   $('#btn-disconnect').hidden = !connected;
   const canOp = connected && !state.busy;
   $('#btn-read').disabled = !canOp;
