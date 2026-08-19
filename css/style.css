@@ -264,6 +264,7 @@ input[type="range"] { padding: 0; accent-color: var(--accent); }
 
 /* Chips (bancos / faixas cc) */
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+#cc-bands { margin-top: 14px; }
 .chip {
   cursor: pointer;
   border: 1px solid var(--line);
