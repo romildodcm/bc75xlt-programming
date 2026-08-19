@@ -56,7 +56,7 @@
 
       <div id="view-config" class="view config-view">
         <section class="cfg-section">
-          <h3>Rádio</h3>
+          <h3 data-tip="Configurações gerais do rádio.">Rádio</h3>
           <div class="cfg-grid">
             <div class="field"><label data-tip="Modelo do rádio, lido do próprio rádio (ex.: BC75XLT).">Modelo</label><span id="info-model" class="value">—</span></div>
             <div class="field"><label data-tip="Versão do firmware do rádio, lida do próprio rádio.">Firmware</label><span id="info-firmware" class="value">—</span></div>
@@ -95,7 +95,7 @@
         </section>
 
         <section class="cfg-section">
-          <h3>Pesquisa geral</h3>
+          <h3 data-tip="Pesquisa livre por frequências, com delay e direção definidos.">Pesquisa geral</h3>
           <div class="cfg-grid">
             <div class="field"><label>Delay</label>
               <select id="cfg-gs-dly"></select>
@@ -107,7 +107,7 @@
         </section>
 
         <section class="cfg-section">
-          <h3>Pesquisa customizada</h3>
+          <h3 data-tip="Faixas de frequência customizadas para pesquisa (até 10, com limites e ativação).">Pesquisa customizada</h3>
           <p class="hint">Delay/direção das faixas customizadas e até 10 faixas de frequência (CSG/CSP).</p>
           <div class="cfg-grid">
             <div class="field"><label>Delay</label>
@@ -121,7 +121,7 @@
         </section>
 
         <section class="cfg-section">
-          <h3>Close Call</h3>
+          <h3 data-tip="Close Call: captura sinais fortes próximos ao rádio, sem precisar digitar frequências.">Close Call</h3>
           <div class="cfg-grid">
             <div class="field"><label>Modo</label>
               <select id="cfg-cc-mode">
@@ -137,12 +137,12 @@
         </section>
 
         <section class="cfg-section">
-          <h3>Serviços (Service Search)</h3>
+          <h3 data-tip="Pesquisa por serviços predefinidos (WX, Polícia, Bombeiros, Marinha, HAM, Ferrovias, CB, etc.).">Serviços (Service Search)</h3>
           <div id="services-list" class="services"></div>
         </section>
 
         <details id="global-lockout-details" class="cfg-section">
-          <summary><span class="ms" aria-hidden="true">lock</span> Lockouts globais (<span id="gl-count">0</span>)</summary>
+          <summary data-tip="Frequências travadas globalmente (ignoradas em todas as pesquisas)."><span class="ms" aria-hidden="true">lock</span> Lockouts globais (<span id="gl-count">0</span>)</summary>
           <ul id="gl-list" class="gl-list"></ul>
         </details>
       </div>
