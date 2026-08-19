@@ -60,6 +60,7 @@ python3 -m http.server 8000
 
 ## Notas técnicas
 
+- A comunicação é feita **direto pelo navegador** via **Web Serial API** — nenhum dado sai do seu computador. Protocolo baseado em `BC75XLT_Protocol.pdf` (Uniden) e no projeto [mateusza/bearcatctl](https://github.com/mateusza/bearcatctl).
 - **Protocolo**: linha de comando em ASCII terminada com `\r`, resposta terminada com `\r`, 57600 bps 8N1 (documentado no `BC75XLT_Protocol.pdf`).
 - O campo de frequência no rádio (`CIN`/`CSP`) usa unidades de **100 Hz** (MHz × 10000); o arquivo `.bc75xlt_ss` usa **Hz**.
 - O arquivo `.bc75xlt_ss` é texto com campos separados por **TAB** e linhas em **CRLF**, reproduzido fielmente na exportação.
