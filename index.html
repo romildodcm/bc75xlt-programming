@@ -30,24 +30,15 @@
       <span class="icon-wrap" data-tip="Salvar arquivo de configuração (.bc75xlt_ss)">
         <button id="btn-export" class="icon-btn" aria-label="Salvar arquivo"><span class="ms" aria-hidden="true">save</span></button>
       </span>
+      <span class="icon-wrap" data-tip="Como usar">
+        <button id="btn-help" class="icon-btn" aria-label="Como usar"><span class="ms" aria-hidden="true">help</span></button>
+      </span>
     </div>
   </header>
 
   <div id="banner-unsupported" class="banner" hidden>
     <span class="ms" aria-hidden="true">warning</span> Seu navegador não suporta a <b>Web Serial API</b>. Use <b>Google Chrome</b> ou <b>Microsoft Edge</b> em uma página <b>HTTPS</b> (GitHub Pages fornece HTTPS automaticamente).
   </div>
-
-  <details class="help-box">
-    <summary><span class="ms" aria-hidden="true">help</span> Como usar</summary>
-    <ol>
-      <li>Conecte o rádio ao computador pelo cabo USB (driver CP210x instalado).</li>
-      <li>Clique em <b>Conectar rádio</b> e escolha a porta serial na janela do navegador.</li>
-      <li>Use <b>Ler do rádio</b> para carregar tudo do rádio, ou <b>Importar arquivo</b> para carregar um <code>.bc75xlt_ss</code>.</li>
-      <li>Edite as frequências nas abas de banco e as configurações no painel.</li>
-      <li>Use <b>Gravar no rádio</b> para enviar ao rádio (marque "limpar antes" para apagar tudo primeiro).</li>
-      <li>Use <b>Salvar arquivo</b> para baixar um arquivo <code>.bc75xlt_ss</code> compatível com o software original.</li>
-    </ol>
-  </details>
 
   <section class="actions-bar">
     <div class="actions-right">
@@ -196,6 +187,24 @@
       <div class="modal-actions">
         <button id="modal-cancel" class="btn">Cancelar</button>
         <button id="modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">upload</span> Confirmar gravação</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="help-modal" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+      <h3 id="help-modal-title"><span class="ms" aria-hidden="true">help</span> Como usar</h3>
+      <ol class="help-steps">
+        <li>Conecte o rádio ao computador pelo cabo USB (driver CP210x instalado).</li>
+        <li>Clique em <b>Conectar rádio</b> e escolha a porta serial na janela do navegador.</li>
+        <li>Use o botão <b>Ler do rádio</b> (ícone de download, no topo) para carregar tudo do rádio, ou <b>Importar arquivo</b> para carregar um <code>.bc75xlt_ss</code>.</li>
+        <li>Edite as frequências nas abas de banco e as configurações na aba <b>Configurações</b>.</li>
+        <li>Use o botão <b>Gravar no rádio</b> (ícone de upload, no topo) para enviar ao rádio — um modal vai perguntar se você quer limpar a memória antes.</li>
+        <li>Use <b>Salvar arquivo</b> para baixar um arquivo <code>.bc75xlt_ss</code> compatível com o software original.</li>
+      </ol>
+      <p class="help-note">A comunicação é feita direto pelo navegador (Web Serial API) — nenhum dado sai do seu computador. Requer <b>Chrome</b> ou <b>Edge</b> em uma página HTTPS.</p>
+      <div class="modal-actions">
+        <button id="help-modal-close" class="btn btn-primary">Entendi</button>
       </div>
     </div>
   </div>

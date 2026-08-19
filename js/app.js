@@ -443,6 +443,15 @@ function closeWriteModal() {
   $('#write-modal').hidden = true;
 }
 
+function openHelpModal() {
+  $('#help-modal').hidden = false;
+  $('#help-modal-close').focus();
+}
+
+function closeHelpModal() {
+  $('#help-modal').hidden = true;
+}
+
 async function confirmWrite() {
   const clearFirst = $('#modal-clear').checked;
   closeWriteModal();
@@ -586,8 +595,15 @@ function init() {
   $('#write-modal').addEventListener('click', (e) => {
     if (e.target === $('#write-modal')) closeWriteModal();
   });
+  $('#btn-help').addEventListener('click', openHelpModal);
+  $('#help-modal-close').addEventListener('click', closeHelpModal);
+  $('#help-modal').addEventListener('click', (e) => {
+    if (e.target === $('#help-modal')) closeHelpModal();
+  });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !$('#write-modal').hidden) closeWriteModal();
+    if (e.key !== 'Escape') return;
+    if (!$('#write-modal').hidden) closeWriteModal();
+    else if (!$('#help-modal').hidden) closeHelpModal();
   });
 
   $$('.icon-wrap[data-tip]').forEach((wrap) => {
