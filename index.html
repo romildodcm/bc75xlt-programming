@@ -24,6 +24,12 @@
       <span class="icon-wrap" data-tip="Gravar no rádio (envia tudo)">
         <button id="btn-write" class="icon-btn btn-accent" disabled aria-label="Gravar no rádio"><span class="ms" aria-hidden="true">upload</span></button>
       </span>
+      <span class="icon-wrap" data-tip="Importar arquivo de configuração (.bc75xlt_ss)">
+        <button id="btn-import" class="icon-btn" aria-label="Importar arquivo"><span class="ms" aria-hidden="true">folder_open</span></button>
+      </span>
+      <span class="icon-wrap" data-tip="Salvar arquivo de configuração (.bc75xlt_ss)">
+        <button id="btn-export" class="icon-btn" aria-label="Salvar arquivo"><span class="ms" aria-hidden="true">save</span></button>
+      </span>
       <button id="btn-disconnect" class="btn" hidden><span class="ms" aria-hidden="true">link_off</span> Desconectar</button>
     </div>
   </header>
@@ -49,8 +55,6 @@
       <label class="chk-inline" title="Executa o comando CLR antes de gravar (apaga toda a memória)"><input type="checkbox" id="chk-clear"> limpar antes de gravar</label>
     </div>
     <div class="actions-right">
-      <button id="btn-import" class="btn"><span class="ms" aria-hidden="true">folder_open</span> Importar arquivo</button>
-      <button id="btn-export" class="btn"><span class="ms" aria-hidden="true">save</span> Salvar arquivo</button>
       <input type="file" id="file-input" accept=".bc75xlt_ss,.ss,.txt" hidden>
     </div>
     <div id="progress-wrap" class="progress-wrap" hidden>
