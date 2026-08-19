@@ -61,6 +61,26 @@ function setProgress(pct, label) {
   $('#progress-label').textContent = label;
 }
 
+const tipEl = $('#tooltip');
+function showTip(wrap) {
+  const text = wrap.getAttribute('data-tip');
+  if (!text) return;
+  tipEl.textContent = text;
+  tipEl.hidden = false;
+  const r = wrap.getBoundingClientRect();
+  const tw = tipEl.offsetWidth;
+  const th = tipEl.offsetHeight;
+  let x = Math.round(r.left + r.width / 2 - tw / 2);
+  x = Math.max(8, Math.min(x, window.innerWidth - tw - 8));
+  let y = r.bottom + 8;
+  if (y + th > window.innerHeight - 8) y = r.top - th - 8;
+  tipEl.style.left = `${x}px`;
+  tipEl.style.top = `${y}px`;
+}
+function hideTip() {
+  tipEl.hidden = true;
+}
+
 function assertOk(line, ctx) {
   if (line.startsWith('ERR')) throw new Error(`${ctx}: erro de comando (${line})`);
   if (line.startsWith('NG')) throw new Error(`${ctx}: comando inválido no momento (${line})`);
@@ -540,6 +560,13 @@ function init() {
   $('#btn-import').addEventListener('click', () => $('#file-input').click());
   $('#btn-export').addEventListener('click', onExport);
   $('#file-input').addEventListener('change', onImport);
+
+  $$('.icon-wrap[data-tip]').forEach((wrap) => {
+    wrap.addEventListener('mouseenter', () => showTip(wrap));
+    wrap.addEventListener('mouseleave', hideTip);
+  });
+  window.addEventListener('scroll', hideTip, true);
+  window.addEventListener('resize', hideTip);
 
   $('#cfg-bandplan').addEventListener('change', (e) => { state.model.misc.bandPlan = e.target.value; });
   $('#cfg-priority').addEventListener('change', (e) => { state.model.priority = e.target.value; });
