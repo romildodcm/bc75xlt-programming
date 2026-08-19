@@ -74,7 +74,7 @@ button { font: inherit; }
 .icon-btn.btn-accent { background: linear-gradient(135deg, var(--accent), var(--accent2)); border-color: transparent; color: #04121f; }
 .icon-btn.btn-accent:hover:not(:disabled) { filter: brightness(1.08); }
 
-/* Tooltip fixo (não estoura a janela) */
+/* Tooltip fixo (não estoura a janela, quebra em linhas) */
 .tooltip {
   position: fixed;
   z-index: 200;
@@ -86,9 +86,10 @@ button { font: inherit; }
   font-size: 12px;
   font-weight: 500;
   line-height: 1.4;
+  max-width: 240px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
   pointer-events: none;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .badge {
