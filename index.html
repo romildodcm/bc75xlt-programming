@@ -17,7 +17,7 @@
       <p class="subtitle">Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT</p>
     </div>
     <div class="conn">
-      <button id="btn-connect" class="btn btn-primary"><span class="conn-dot"></span><span class="ms" aria-hidden="true">usb</span> Conectar rádio</button>
+      <button id="btn-connect" class="btn btn-primary"><span class="ms" aria-hidden="true">usb</span> Conectar</button>
       <span class="icon-wrap" data-tip="Ler do rádio (carrega tudo)">
         <button id="btn-read" class="icon-btn btn-accent" disabled aria-label="Ler do rádio"><span class="ms" aria-hidden="true">download</span></button>
       </span>
@@ -36,19 +36,16 @@
     </div>
   </header>
 
+  <div id="progress-wrap" class="progress-wrap" hidden>
+    <progress id="progress" max="100" value="0"></progress>
+    <span id="progress-label"></span>
+  </div>
+
   <div id="banner-unsupported" class="banner" hidden>
     <span class="ms" aria-hidden="true">warning</span> Seu navegador não suporta a <b>Web Serial API</b>. Use <b>Google Chrome</b> ou <b>Microsoft Edge</b> em uma página <b>HTTPS</b> (GitHub Pages fornece HTTPS automaticamente).
   </div>
 
-  <section class="actions-bar">
-    <div class="actions-right">
-      <input type="file" id="file-input" accept=".bc75xlt_ss,.ss,.txt" hidden>
-    </div>
-    <div id="progress-wrap" class="progress-wrap" hidden>
-      <progress id="progress" max="100" value="0"></progress>
-      <span id="progress-label"></span>
-    </div>
-  </section>
+  <input type="file" id="file-input" accept=".bc75xlt_ss,.ss,.txt" hidden>
 
   <main class="layout">
     <section class="banks-panel">

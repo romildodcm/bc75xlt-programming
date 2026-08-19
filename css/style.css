@@ -120,19 +120,6 @@ button { font: inherit; }
   background: rgba(52, 211, 153, 0.12);
   color: var(--green);
 }
-.conn-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--muted);
-  display: inline-block;
-  margin-right: 6px;
-  transition: background 0.2s, box-shadow 0.2s;
-}
-.btn-primary.connected .conn-dot {
-  background: var(--green);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.25);
-}
 .btn-accent { background: linear-gradient(135deg, var(--accent), var(--accent2)); border-color: transparent; color: #04121f; font-weight: 700; }
 .btn-accent:hover:not(:disabled) { filter: brightness(1.08); }
 .btn-small { padding: 5px 10px; font-size: 12.5px; }
@@ -147,33 +134,19 @@ button { font: inherit; }
   color: var(--amber);
 }
 
-/* ---------- Barra de ações ---------- */
-.actions-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding: 12px 22px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(15, 20, 32, 0.92);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--line);
-}
-.actions-left, .actions-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.actions-right { margin-left: auto; }
-
-.chk-inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); cursor: pointer; user-select: none; }
-
+/* ---------- Progresso (aparece só durante leitura/gravação) ---------- */
 .progress-wrap {
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 8px 22px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--line);
 }
 #progress { flex: 1; height: 10px; accent-color: var(--accent); }
 #progress-label { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+
+.chk-inline { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); cursor: pointer; user-select: none; }
 
 /* ---------- Layout ---------- */
 .layout {
