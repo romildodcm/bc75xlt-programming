@@ -50,9 +50,6 @@
   </details>
 
   <section class="actions-bar">
-    <div class="actions-left">
-      <label class="chk-inline" title="Executa o comando CLR antes de gravar (apaga toda a memória)"><input type="checkbox" id="chk-clear"> limpar antes de gravar</label>
-    </div>
     <div class="actions-right">
       <input type="file" id="file-input" accept=".bc75xlt_ss,.ss,.txt" hidden>
     </div>
@@ -184,6 +181,24 @@
     <p>Comunicação direta com o rádio pelo navegador via <b>Web Serial API</b> — nenhum dado sai do seu computador.
     Protocolo baseado em <code>BC75XLT_Protocol.pdf</code> (Uniden) e no projeto <a href="https://github.com/mateusza/bearcatctl" target="_blank" rel="noopener">mateusza/bearcatctl</a>.</p>
   </footer>
+
+  <div id="write-modal" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="write-modal-title">
+      <h3 id="write-modal-title">Gravar no rádio</h3>
+      <p class="modal-desc">A gravação enviará as configurações e frequências atuais da página para o rádio.</p>
+      <label class="modal-option">
+        <input type="checkbox" id="modal-clear">
+        <span>
+          <b>Limpar toda a memória antes de gravar</b>
+          <small>Executa o comando <b>CLR</b>: apaga todos os canais e configurações, voltando o rádio aos padrões de fábrica, antes de enviar os novos dados. Use quando quiser começar do zero (leva cerca de 1 minuto).</small>
+        </span>
+      </label>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn">Cancelar</button>
+        <button id="modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">upload</span> Confirmar gravação</button>
+      </div>
+    </div>
+  </div>
 
   <div id="tooltip" class="tooltip" hidden></div>
   <div id="toast" class="toast" hidden></div>

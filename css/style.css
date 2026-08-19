@@ -414,6 +414,44 @@ input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px;
 .brand h1 .ms { font-size: 24px; vertical-align: -5px; margin-right: 4px; color: var(--accent); }
 .cfg-section summary .ms { margin-right: 4px; color: var(--accent); }
 
+/* ---------- Modal de gravação ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 16, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 16px;
+}
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  max-width: 480px;
+  width: 100%;
+  padding: 20px 22px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.modal h3 { margin: 0 0 8px; font-size: 17px; }
+.modal-desc { color: var(--muted); margin: 0 0 14px; }
+.modal-option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+}
+.modal-option input { margin-top: 2px; width: 16px; height: 16px; flex: none; }
+.modal-option b { display: block; }
+.modal-option small { color: var(--muted); display: block; margin-top: 3px; line-height: 1.45; }
+.modal-option small b { display: inline; color: var(--text); }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+
 /* ---------- Rodapé ---------- */
 footer {
   padding: 14px 22px 26px;

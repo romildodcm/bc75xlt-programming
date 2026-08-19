@@ -430,7 +430,27 @@ async function onWrite() {
     toast('Pelo menos um banco deve permanecer habilitado.', 'error');
     return;
   }
-  const clearFirst = $('#chk-clear').checked;
+  openWriteModal();
+}
+
+function openWriteModal() {
+  $('#modal-clear').checked = false;
+  $('#write-modal').hidden = false;
+  $('#modal-confirm').focus();
+}
+
+function closeWriteModal() {
+  $('#write-modal').hidden = true;
+}
+
+async function confirmWrite() {
+  const clearFirst = $('#modal-clear').checked;
+  closeWriteModal();
+  await doWrite(clearFirst);
+}
+
+async function doWrite(clearFirst) {
+  const m = state.model;
   state.busy = true;
   renderStatus();
   $('#progress-wrap').hidden = false;
@@ -560,6 +580,15 @@ function init() {
   $('#btn-import').addEventListener('click', () => $('#file-input').click());
   $('#btn-export').addEventListener('click', onExport);
   $('#file-input').addEventListener('change', onImport);
+
+  $('#modal-confirm').addEventListener('click', confirmWrite);
+  $('#modal-cancel').addEventListener('click', closeWriteModal);
+  $('#write-modal').addEventListener('click', (e) => {
+    if (e.target === $('#write-modal')) closeWriteModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !$('#write-modal').hidden) closeWriteModal();
+  });
 
   $$('.icon-wrap[data-tip]').forEach((wrap) => {
     wrap.addEventListener('mouseenter', () => showTip(wrap));
