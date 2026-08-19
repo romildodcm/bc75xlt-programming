@@ -52,7 +52,7 @@ function defaultModel() {
 
   return {
     meta: { filename: '', model: '', firmware: '' },
-    misc: { f3: 'Off', sq: 7, vol: 4, bandPlan: 'USA', keyLock: false },
+    misc: { f3: 'Off', sq: 3, vol: 3, bandPlan: 'USA', keyLock: false },
     priority: 'Off',
     services,
     customSearch: { dly: '2', dir: 'Up' },
