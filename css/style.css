@@ -218,6 +218,9 @@ button { font: inherit; }
 .field label { color: var(--muted); font-size: 12px; }
 .field .value { font-weight: 600; }
 
+/* Espaço extra entre Key Lock e o seletor acima */
+.key-lock-field { margin-top: 14px; }
+
 /* Stepper (Volume / Squelch) */
 .stepper { display: flex; align-items: center; gap: 6px; }
 .step-btn {
