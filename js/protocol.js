@@ -92,7 +92,7 @@ class ScannerConnection {
   }
 
   async send(command) {
-    if (!this.writer) throw new Error('Porta serial não está aberta.');
+    if (!this.writer) throw new Error(t('portNotOpen'));
     await this.writer.write(new TextEncoder().encode(command + '\r'));
   }
 
@@ -108,10 +108,10 @@ class ScannerConnection {
       try {
         res = await this.reader.read();
       } catch (err) {
-        if (this.broken) throw new Error('Conexão abortada.');
+        if (this.broken) throw new Error(t('connAborted'));
         throw err;
       }
-      if (res.done) throw new Error('Porta serial fechada.');
+      if (res.done) throw new Error(t('portClosed'));
       if (res.value && res.value.length) {
         this.buffer += new TextDecoder().decode(res.value);
       }
@@ -119,13 +119,13 @@ class ScannerConnection {
   }
 
   async readLine(timeoutMs = 3000) {
-    if (this.broken) throw new Error('Conexão abortada.');
+    if (this.broken) throw new Error(t('connAborted'));
     let timer;
     const timeoutPromise = new Promise((_, reject) => {
       timer = setTimeout(() => {
         this.broken = true;
         try { if (this.reader) this.reader.cancel('timeout'); } catch (e) { /* noop */ }
-        reject(new Error(`Sem resposta do rádio (timeout de ${timeoutMs} ms).`));
+        reject(new Error(t('timeout', timeoutMs)));
       }, timeoutMs);
     });
     try {

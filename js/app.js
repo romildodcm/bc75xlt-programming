@@ -106,9 +106,7 @@ function renderStatus() {
   const connected = !!state.conn && state.conn.connected;
   const btn = $('#btn-connect');
   btn.classList.toggle('connected', connected);
-  btn.title = connected
-    ? 'Clique para desconectar o rádio'
-    : 'Conecte o rádio ao computador e escolha a porta serial';
+  btn.title = t(connected ? 'connectTipOn' : 'connectTipOff');
   const canOp = connected && !state.busy;
   $('#btn-read').disabled = !canOp;
   $('#btn-write').disabled = !canOp;
@@ -198,7 +196,7 @@ function renderGL() {
   if (gl.length === 0) {
     const li = document.createElement('li');
     li.className = 'empty';
-    li.textContent = 'Nenhum lockout global (somente leitura).';
+    li.textContent = t('noGlobalLockouts');
     list.appendChild(li);
     return;
   }
@@ -225,7 +223,7 @@ function renderBanks() {
     tab.type = 'button';
     tab.className = 'sub-tab' + (b.index - 1 === state.activeBank ? ' active' : '') + (b.enabled ? '' : ' off');
     tab.dataset.bank = b.index;
-    tab.title = `${b.name} — ${count} canais${b.enabled ? '' : ' (desabilitado no scan)'}`;
+    tab.title = `${b.name} — ${count} ${t('channels')}${b.enabled ? '' : t('disabledScan')}`;
     tab.textContent = b.index;
     tabs.appendChild(tab);
   });
@@ -256,9 +254,9 @@ function renderBankTable() {
     tr.innerHTML = `
       <td class="ch-num">${ch.index}</td>
       <td><input type="text" inputmode="decimal" class="freq-input ${invalid ? 'invalid' : ''}" data-ch="${ch.index}" value="${hzToMhz(ch.freqHz)}" placeholder="—"></td>
-      <td><input type="checkbox" class="ch-dly" data-ch="${ch.index}" ${ch.dly === 'On' ? 'checked' : ''} title="Delay"></td>
-      <td><input type="checkbox" class="ch-lo" data-ch="${ch.index}" ${(ch.lo === '1' || ch.lo === 'On') ? 'checked' : ''} title="Lockout"></td>
-      <td><input type="checkbox" class="ch-prio" data-ch="${ch.index}" ${(ch.prio === 'On' || ch.prio === '1') ? 'checked' : ''} title="Priority"></td>
+      <td><input type="checkbox" class="ch-dly" data-ch="${ch.index}" ${ch.dly === 'On' ? 'checked' : ''} title="${t('dlyTip')}"></td>
+      <td><input type="checkbox" class="ch-lo" data-ch="${ch.index}" ${(ch.lo === '1' || ch.lo === 'On') ? 'checked' : ''} title="${t('lockTip')}"></td>
+      <td><input type="checkbox" class="ch-prio" data-ch="${ch.index}" ${(ch.prio === 'On' || ch.prio === '1') ? 'checked' : ''} title="${t('priTip')}"></td>
     `;
     tbody.appendChild(tr);
   });
@@ -276,7 +274,7 @@ function renderAll() {
 
 async function onConnect() {
   if (state.busy) {
-    toast('Aguarde a operação em andamento terminar.', 'error');
+    toast(t('waitBusy'), 'error');
     return;
   }
   // Se já estiver conectado, o clique desconecta
@@ -284,11 +282,11 @@ async function onConnect() {
     await state.conn.close();
     state.conn = null;
     renderStatus();
-    toast('Desconectado.');
+    toast(t('disconnected'));
     return;
   }
   if (!ScannerConnection.supported()) {
-    toast('Web Serial não suportado. Use Chrome ou Edge em uma página HTTPS.', 'error');
+    toast(t('webSerialUnsupported'), 'error');
     return;
   }
   try {
@@ -297,7 +295,7 @@ async function onConnect() {
     await conn.open();
     state.conn = conn;
     renderStatus();
-    toast('Rádio conectado!');
+    toast(t('connectedOk'));
     try {
       const mdl = (await conn.query('MDL', 3000)).split(',');
       state.model.meta.model = mdl[1] || '';
@@ -305,10 +303,10 @@ async function onConnect() {
       state.model.meta.firmware = ver[1] || '';
       renderInfo();
     } catch (err) {
-      toast('Conectado à porta, mas o rádio não respondeu. Verifique o cabo e o estado do rádio.', 'error');
+      toast(t('noResponse'), 'error');
     }
   } catch (err) {
-    toast(`Falha ao conectar: ${err.message}`, 'error');
+    toast(t('connectFail', err.message), 'error');
   }
 }
 
@@ -318,13 +316,13 @@ async function onConnect() {
 
 async function onRead() {
   if (!state.conn || !state.conn.connected) {
-    toast('Conecte o rádio primeiro.', 'error');
+    toast(t('needConnect'), 'error');
     return;
   }
   state.busy = true;
   renderStatus();
   $('#progress-wrap').hidden = false;
-  setProgress(0, 'Entrando em modo de programação...');
+  setProgress(0, t('enteringProg'));
   let connectionOk = true;
 
   try {
@@ -387,7 +385,7 @@ async function onRead() {
         sv.dir = RADIO.radioToDir(ssp[3]);
       }
 
-      setProgress(5, 'Lendo canais...');
+      setProgress(5, t('readingChannels'));
       for (let i = 1; i <= RADIO.NUM_CHANNELS; i++) {
         const cin = (await conn.query(`CIN,${i}`)).split(',');
         const bank = m.banks[Math.floor((i - 1) / RADIO.CHANNELS_PER_BANK)];
@@ -396,7 +394,7 @@ async function onRead() {
         ch.dly = cin[6] === '1' ? 'On' : 'Off';
         ch.lo = cin[7] || '0';
         ch.prio = cin[8] === '1' ? 'On' : 'Off';
-        setProgress(Math.round(5 + (i / RADIO.NUM_CHANNELS) * 95), `Lendo canal ${i}/300...`);
+        setProgress(Math.round(5 + (i / RADIO.NUM_CHANNELS) * 95), t('readingCh', i));
       }
 
       // Lockouts globais (best-effort — não interrompe a leitura se falhar)
@@ -424,12 +422,12 @@ async function onRead() {
 
     connectionOk = state.conn.connected;
     if (connectionOk) {
-      toast('Leitura concluída com sucesso!');
+      toast(t('readDone'));
     } else {
-      toast('Leitura concluída, mas a conexão foi perdida — reconecte o rádio.', 'error');
+      toast(t('readLostConn'), 'error');
     }
   } catch (err) {
-    toast(`Erro ao ler: ${err.message}`, 'error');
+    toast(t('readFail', err.message), 'error');
   } finally {
     state.busy = false;
     $('#progress-wrap').hidden = true;
@@ -441,12 +439,12 @@ async function onRead() {
 
 async function onWrite() {
   if (!state.conn || !state.conn.connected) {
-    toast('Conecte o rádio primeiro.', 'error');
+    toast(t('needConnect'), 'error');
     return;
   }
   const m = state.model;
   if (m.banks.every((b) => !b.enabled)) {
-    toast('Pelo menos um banco deve permanecer habilitado.', 'error');
+    toast(t('atLeastOneBank'), 'error');
     return;
   }
   openWriteModal();
@@ -474,8 +472,8 @@ function closeHelpModal() {
 function openClearModal() {
   const bank = state.model.banks[state.activeBank];
   $('#clear-modal-desc').textContent = bank
-    ? `Tem certeza que deseja apagar todas as frequências do ${bank.name} (canais ${bank.index})?`
-    : 'Tem certeza que deseja apagar as frequências deste banco?';
+    ? t('clearBankDescDyn', bank.name, bank.index)
+    : t('clearBankDesc');
   $('#clear-modal').hidden = false;
   $('#clear-modal-confirm').focus();
 }
@@ -489,7 +487,7 @@ function confirmClearBank() {
   if (bank) {
     bank.channels.forEach((c) => { c.freqHz = 0; });
     renderBanks();
-    toast(`Banco ${bank.index} limpo.`);
+    toast(t('bankCleared', bank.index));
   }
   closeClearModal();
 }
@@ -505,7 +503,7 @@ async function doWrite(clearFirst) {
   state.busy = true;
   renderStatus();
   $('#progress-wrap').hidden = false;
-  setProgress(0, 'Preparando...');
+  setProgress(0, t('preparing'));
 
   try {
     const conn = state.conn;
@@ -513,10 +511,10 @@ async function doWrite(clearFirst) {
     await conn.query('PRG');
     try {
       if (clearFirst) {
-        setProgress(0, 'Limpando memória (pode levar ~1 minuto)...');
+        setProgress(0, t('clearing'));
         const r = await conn.query('CLR', 90000);
         assertOk(r, 'CLR');
-        setProgress(1, 'Memória limpa.');
+        setProgress(1, t('clearedOk'));
       }
 
       const bpl = (await conn.query(`BPL,${RADIO.BANDPLAN_VALUE[m.misc.bandPlan] || '0'}`));
@@ -561,7 +559,7 @@ async function doWrite(clearFirst) {
         const prio = (ch.prio === 'On' || ch.prio === '1') ? '1' : '0';
         const cin = (await conn.query(`CIN,${i},,${frq},,,${dly},${lo},${prio}`));
         assertOk(cin, `CIN ${i}`);
-        setProgress(Math.round((i / RADIO.NUM_CHANNELS) * 100), `Gravando canal ${i}/300...`);
+        setProgress(Math.round((i / RADIO.NUM_CHANNELS) * 100), t('writingCh', i));
       }
     } finally {
       try { await conn.query('EPG'); } catch (e) { /* noop */ }
@@ -571,9 +569,9 @@ async function doWrite(clearFirst) {
     await conn.query(`VOL,${m.misc.vol}`);
     await conn.query(`SQL,${m.misc.sq}`);
 
-    toast('Configuração gravada no rádio!');
+    toast(t('writeDone'));
   } catch (err) {
-    toast(`Erro ao gravar: ${err.message}`, 'error');
+    toast(t('writeFail', err.message), 'error');
   } finally {
     state.busy = false;
     $('#progress-wrap').hidden = true;
@@ -598,7 +596,7 @@ function onExport() {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
-  toast('Arquivo salvo!');
+  toast(t('fileSaved'));
 }
 
 function onImport(e) {
@@ -611,9 +609,9 @@ function onImport(e) {
       state.model.meta.filename = file.name;
       renderInfo();
       renderBanks();
-      toast(`Arquivo "${file.name}" importado!`);
+      toast(t('fileImported', file.name));
     } catch (err) {
-      toast(`Erro ao importar: ${err.message}`, 'error');
+      toast(t('importFail', err.message), 'error');
     }
   };
   reader.readAsText(file);
@@ -638,6 +636,7 @@ function init() {
     if (e.target === $('#write-modal')) closeWriteModal();
   });
   $('#btn-help').addEventListener('click', openHelpModal);
+  $('#btn-lang').addEventListener('click', () => setLang(LANG === 'pt' ? 'en' : 'pt'));
   $('#help-modal-close').addEventListener('click', closeHelpModal);
   $('#help-modal').addEventListener('click', (e) => {
     if (e.target === $('#help-modal')) closeHelpModal();
@@ -684,7 +683,7 @@ function init() {
     if (!bank) return;
     bank.enabled = e.target.checked;
     renderBanks();
-    toast(`Banco ${bank.index} ${bank.enabled ? 'habilitado' : 'desabilitado'} no scan.`);
+    toast(t(bank.enabled ? 'bankEnabled' : 'bankDisabled', bank.index));
   });
 
   $('#custom-ranges').addEventListener('change', (e) => {
@@ -750,7 +749,7 @@ function init() {
     if (t.classList.contains('freq-input')) {
       const v = parseMhz(t.value);
       if (Number.isNaN(v)) {
-        toast('Frequência inválida.', 'error');
+        toast(t('invalidFreq'), 'error');
         return;
       }
       ch.freqHz = v;
@@ -776,6 +775,7 @@ function init() {
     }
   });
 
+  initLang();
   renderAll();
 }
 

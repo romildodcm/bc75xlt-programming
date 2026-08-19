@@ -15,10 +15,10 @@
   <header class="topbar">
     <div class="brand">
       <h1><span class="ms" aria-hidden="true">radio</span> BC75XLT <span class="light">Web Programmer</span></h1>
-      <p class="subtitle">Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT</p>
+      <p class="subtitle" data-i18n="subtitle">Programador do rádio via navegador (Web Serial) — Uniden BC75XLT / UBC75XLT</p>
     </div>
     <div class="conn">
-      <button id="btn-connect" class="btn btn-primary"><span class="ms" aria-hidden="true">usb</span> Conectar</button>
+      <button id="btn-connect" class="btn btn-primary"><span class="ms" aria-hidden="true">usb</span> <span data-i18n="connect">Conectar</span></button>
       <span class="icon-wrap" data-tip="Ler do rádio (carrega tudo)">
         <button id="btn-read" class="icon-btn btn-accent" disabled aria-label="Ler do rádio"><span class="ms" aria-hidden="true">download</span></button>
       </span>
@@ -32,7 +32,10 @@
         <button id="btn-export" class="icon-btn" aria-label="Salvar arquivo"><span class="ms" aria-hidden="true">save</span></button>
       </span>
       <span class="icon-wrap">
-        <button id="btn-help" class="icon-btn" aria-label="Como usar"><span class="ms" aria-hidden="true">help</span></button>
+        <button id="btn-help" class="icon-btn" data-i18n-aria="helpTitle" aria-label="Como usar"><span class="ms" aria-hidden="true">help</span></button>
+      </span>
+      <span class="icon-wrap">
+        <button id="btn-lang" class="lang-btn" data-i18n-aria="langTip" aria-label="Idioma"><span class="ms" aria-hidden="true">translate</span><span class="lang-label">PT</span></button>
       </span>
     </div>
   </header>
@@ -43,7 +46,7 @@
   </div>
 
   <div id="banner-unsupported" class="banner" hidden>
-    <span class="ms" aria-hidden="true">warning</span> Seu navegador não suporta a <b>Web Serial API</b>. Use <b>Google Chrome</b> ou <b>Microsoft Edge</b> em uma página <b>HTTPS</b> (GitHub Pages fornece HTTPS automaticamente).
+    <span class="ms" aria-hidden="true">warning</span> <span data-i18n-html="banner">Seu navegador não suporta a <b>Web Serial API</b>. Use <b>Google Chrome</b> ou <b>Microsoft Edge</b> em uma página <b>HTTPS</b> (GitHub Pages fornece HTTPS automaticamente).</span>
   </div>
 
   <input type="file" id="file-input" accept=".bc75xlt_ss,.ss,.txt" hidden>
@@ -51,23 +54,23 @@
   <main class="layout">
     <section class="banks-panel">
       <div class="sheet-tabs" role="tablist">
-        <button type="button" class="sheet-tab active" data-view="config" role="tab" title="Configurações gerais do rádio"><span class="ms" aria-hidden="true">settings</span> Configurações</button>
-        <button type="button" class="sheet-tab" data-view="bank" role="tab" title="Bancos de memória com as frequências"><span class="ms" aria-hidden="true">grid_view</span> Bancos de memória</button>
+        <button type="button" class="sheet-tab active" data-view="config" role="tab" data-i18n-title="tabConfig" title="Configurações"><span class="ms" aria-hidden="true">settings</span> <span data-i18n="tabConfig">Configurações</span></button>
+        <button type="button" class="sheet-tab" data-view="bank" role="tab" data-i18n-title="tabBanks" title="Bancos de memória"><span class="ms" aria-hidden="true">grid_view</span> <span data-i18n="tabBanks">Bancos de memória</span></button>
       </div>
 
       <div id="view-config" class="view config-view">
         <section class="cfg-section">
-          <h3 data-tip="Configurações gerais do rádio.">Rádio</h3>
+          <h3 data-i18n-tip="radioTip" data-i18n="secRadio">Rádio</h3>
           <div class="cfg-grid">
-            <div class="field"><label data-tip="Modelo do rádio, lido do próprio rádio (ex.: BC75XLT).">Modelo</label><span id="info-model" class="value">—</span></div>
-            <div class="field"><label data-tip="Versão do firmware do rádio, lida do próprio rádio.">Firmware</label><span id="info-firmware" class="value">—</span></div>
-            <div class="field"><label data-tip="Plano de banda: define a grade de passos de frequência (USA ou Canadá).">Band Plan</label>
+            <div class="field"><label data-i18n-tip="modeloTip" data-i18n="fieldModelo">Modelo</label><span id="info-model" class="value">—</span></div>
+            <div class="field"><label data-i18n-tip="firmwareTip" data-i18n="fieldFirmware">Firmware</label><span id="info-firmware" class="value">—</span></div>
+            <div class="field"><label data-i18n-tip="bandPlanTip" data-i18n="fieldBandPlan">Band Plan</label>
               <select id="cfg-bandplan">
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
               </select>
             </div>
-            <div class="field"><label data-tip="Modo de prioridade: verifica canais de prioridade durante a varredura (Off, On, Plus On ou DND).">Prioridade</label>
+            <div class="field"><label data-i18n-tip="priorityTip" data-i18n="fieldPrioridade">Prioridade</label>
               <select id="cfg-priority">
                 <option value="Off">Off</option>
                 <option value="On">On</option>
@@ -76,7 +79,7 @@
               </select>
             </div>
             <div class="field">
-              <label data-tip="Nível de volume do rádio (0 a 15).">Volume</label>
+              <label data-i18n-tip="volumeTip" data-i18n="fieldVolume">Volume</label>
               <div class="stepper">
                 <button type="button" class="step-btn" data-step="vol" data-dir="-1" title="Diminuir volume"><span class="ms" aria-hidden="true">remove</span></button>
                 <span id="cfg-vol-label" class="step-value">3</span>
@@ -84,37 +87,37 @@
               </div>
             </div>
             <div class="field">
-              <label data-tip="Squelch: silencia o ruído de fundo entre transmissões (0 = aberto, 15 = fechado).">Squelch</label>
+              <label data-i18n-tip="squelchTip" data-i18n="fieldSquelch">Squelch</label>
               <div class="stepper">
                 <button type="button" class="step-btn" data-step="sql" data-dir="-1" title="Diminuir squelch"><span class="ms" aria-hidden="true">remove</span></button>
                 <span id="cfg-sql-label" class="step-value">3</span>
                 <button type="button" class="step-btn" data-step="sql" data-dir="1" title="Aumentar squelch"><span class="ms" aria-hidden="true">add</span></button>
               </div>
             </div>
-            <div class="field key-lock-field"><label class="pill-chk" data-tip="Key Lock: trava o teclado do rádio para evitar acionamento acidental."><input type="checkbox" id="cfg-keylock"> Key Lock</label></div>
+            <div class="field key-lock-field"><label class="pill-chk" data-i18n-tip="keyLockTip"><input type="checkbox" id="cfg-keylock"> <span data-i18n="fieldKeyLock">Key Lock</span></label></div>
           </div>
         </section>
 
         <section class="cfg-section">
-          <h3 data-tip="Pesquisa livre por frequências, com delay e direção definidos.">Pesquisa geral</h3>
+          <h3 data-i18n-tip="generalSearchTip" data-i18n="secPesquisaGeral">Pesquisa geral</h3>
           <div class="cfg-grid">
-            <div class="field"><label>Delay</label>
+            <div class="field"><label data-i18n="fieldDelay">Delay</label>
               <select id="cfg-gs-dly"></select>
             </div>
-            <div class="field"><label>Direção</label>
+            <div class="field"><label data-i18n="fieldDirecao">Direção</label>
               <select id="cfg-gs-dir"></select>
             </div>
           </div>
         </section>
 
         <section class="cfg-section">
-          <h3 data-tip="Faixas de frequência customizadas para pesquisa (até 10, com limites e ativação).">Pesquisa customizada</h3>
-          <p class="hint">Delay/direção das faixas customizadas e até 10 faixas de frequência (CSG/CSP).</p>
+          <h3 data-i18n-tip="customSearchTip" data-i18n="secPesquisaCustomizada">Pesquisa customizada</h3>
+          <p class="hint" data-i18n="hintCustom">Delay/direção das faixas customizadas e até 10 faixas de frequência (CSG/CSP).</p>
           <div class="cfg-grid">
-            <div class="field"><label>Delay</label>
+            <div class="field"><label data-i18n="fieldDelay">Delay</label>
               <select id="cfg-cs-dly"></select>
             </div>
-            <div class="field"><label>Direção</label>
+            <div class="field"><label data-i18n="fieldDirecao">Direção</label>
               <select id="cfg-cs-dir"></select>
             </div>
           </div>
@@ -122,28 +125,28 @@
         </section>
 
         <section class="cfg-section">
-          <h3 data-tip="Close Call: captura sinais fortes próximos ao rádio, sem precisar digitar frequências.">Close Call</h3>
+          <h3 data-i18n-tip="closeCallTip" data-i18n="secCloseCall">Close Call</h3>
           <div class="cfg-grid">
-            <div class="field field-full"><label>Modo</label>
+            <div class="field field-full"><label data-i18n="fieldModo">Modo</label>
               <select id="cfg-cc-mode">
                 <option value="Off">Off</option>
                 <option value="CC PRI">CC PRI</option>
                 <option value="CC DND">CC DND</option>
               </select>
             </div>
-            <div class="field"><label class="pill-chk"><input type="checkbox" id="cfg-cc-beep"> Alerta sonoro</label></div>
-            <div class="field"><label class="pill-chk"><input type="checkbox" id="cfg-cc-light"> Alerta visual</label></div>
+            <div class="field"><label class="pill-chk"><input type="checkbox" id="cfg-cc-beep"> <span data-i18n="fieldAlertaSonoro">Alerta sonoro</span></label></div>
+            <div class="field"><label class="pill-chk"><input type="checkbox" id="cfg-cc-light"> <span data-i18n="fieldAlertaVisual">Alerta visual</span></label></div>
           </div>
           <div id="cc-bands" class="chips"></div>
         </section>
 
         <section class="cfg-section">
-          <h3 data-tip="Pesquisa por serviços predefinidos (WX, Polícia, Bombeiros, Marinha, HAM, Ferrovias, CB, etc.).">Serviços (Service Search)</h3>
+          <h3 data-i18n-tip="servicesTip" data-i18n="secServicos">Serviços (Service Search)</h3>
           <div id="services-list" class="services"></div>
         </section>
 
         <details id="global-lockout-details" class="cfg-section">
-          <summary data-tip="Frequências travadas globalmente (ignoradas em todas as pesquisas)."><span class="ms" aria-hidden="true">lock</span> Lockouts globais (<span id="gl-count">0</span>)</summary>
+          <summary data-i18n-tip="lockoutsTip"><span class="ms" aria-hidden="true">lock</span> <span data-i18n="lockouts">Lockouts globais</span> (<span id="gl-count">0</span>)</summary>
           <ul id="gl-list" class="gl-list"></ul>
         </details>
       </div>
@@ -154,21 +157,21 @@
         </div>
         <div class="bank-content">
           <div class="bank-controls">
-            <label class="chk-inline" data-tip="Scan: habilita ou desabilita este banco na varredura (SCG). Quando desligado, o rádio pula este banco durante o scan.">
-              <input type="checkbox" id="bank-enabled"> Scan
+            <label class="chk-inline" data-i18n-tip="scanTip">
+              <input type="checkbox" id="bank-enabled"> <span data-i18n="scan">Scan</span>
             </label>
             <div class="bank-tools">
-              <button id="btn-clear-bank" class="btn btn-small" title="Limpar as frequências do banco atual"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar</button>
+              <button id="btn-clear-bank" class="btn btn-small" data-i18n-title="clearTip" title="Limpar as frequências do banco atual"><span class="ms" aria-hidden="true">delete_sweep</span> <span data-i18n="clear">Limpar</span></button>
             </div>
           </div>
           <table class="ch-table">
             <thead>
               <tr>
-                <th class="ch-num">CH</th>
-                <th>Frequência (MHz)</th>
-                <th data-tip="Delay: pausa a varredura por 2 segundos ao receber uma transmissão">DLY</th>
-                <th data-tip="Lockout: ignora este canal durante a varredura">LOCK</th>
-                <th data-tip="Prioridade: monitora este canal com prioridade durante a varredura">PRI</th>
+                <th class="ch-num" data-i18n="colCH">CH</th>
+                <th data-i18n="colFreq">Frequência (MHz)</th>
+                <th data-i18n-tip="dlyTip" data-i18n="colDLY">DLY</th>
+                <th data-i18n-tip="lockTip" data-i18n="colLOCK">LOCK</th>
+                <th data-i18n-tip="priTip" data-i18n="colPRI">PRI</th>
               </tr>
             </thead>
             <tbody id="ch-tbody"></tbody>
@@ -179,53 +182,53 @@
   </main>
 
   <footer class="site-footer">
-    <span>Desenvolvido por <b>PU5XRM</b> — <a href="https://romildo.net" target="_blank" rel="noopener">romildo.net</a></span>
-    <a href="https://github.com/romildodcm/bc75xlt-programming" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">code</span> Repositório no GitHub</a>
+    <span><span data-i18n="footerBy">Desenvolvido por</span> <b>PU5XRM</b> — <a href="https://romildo.net" target="_blank" rel="noopener">romildo.net</a></span>
+    <a href="https://github.com/romildodcm/bc75xlt-programming" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">code</span> <span data-i18n="repoLink">Repositório no GitHub</span></a>
   </footer>
 
   <div id="write-modal" class="modal-overlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="write-modal-title">
-      <h3 id="write-modal-title">Gravar no rádio</h3>
-      <p class="modal-desc">A gravação enviará as configurações e frequências atuais da página para o rádio.</p>
+      <h3 id="write-modal-title" data-i18n="writeTitle">Gravar no rádio</h3>
+      <p class="modal-desc" data-i18n="writeDesc">A gravação enviará as configurações e frequências atuais da página para o rádio.</p>
       <label class="modal-option">
         <input type="checkbox" id="modal-clear">
         <span>
-          <b>Limpar toda a memória antes de gravar</b>
-          <small>Executa o comando <b>CLR</b>: apaga todos os canais e configurações, voltando o rádio aos padrões de fábrica, antes de enviar os novos dados. Use quando quiser começar do zero (leva cerca de 1 minuto).</small>
+          <b data-i18n="writeClearOption">Limpar toda a memória antes de gravar</b>
+          <small data-i18n-html="writeClearExplanation">Executa o comando <b>CLR</b>: apaga todos os canais e configurações, voltando o rádio aos padrões de fábrica, antes de enviar os novos dados. Use quando quiser começar do zero (leva cerca de 1 minuto).</small>
         </span>
       </label>
       <div class="modal-actions">
-        <button id="modal-cancel" class="btn">Cancelar</button>
-        <button id="modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">upload</span> Confirmar gravação</button>
+        <button id="modal-cancel" class="btn" data-i18n="cancel">Cancelar</button>
+        <button id="modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">upload</span> <span data-i18n="confirmWrite">Confirmar gravação</span></button>
       </div>
     </div>
   </div>
 
   <div id="help-modal" class="modal-overlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
-      <h3 id="help-modal-title"><span class="ms" aria-hidden="true">help</span> Como usar</h3>
+      <h3 id="help-modal-title"><span class="ms" aria-hidden="true">help</span> <span data-i18n="helpTitle">Como usar</span></h3>
       <ol class="help-steps">
-        <li>Conecte o rádio ao computador pelo cabo USB (driver CP210x instalado).</li>
-        <li>Clique em <b>Conectar rádio</b> e escolha a porta serial na janela do navegador.</li>
-        <li>Use o botão <b>Ler do rádio</b> (ícone de download, no topo) para carregar tudo do rádio, ou <b>Importar arquivo</b> para carregar um <code>.bc75xlt_ss</code>.</li>
-        <li>Edite as frequências nas abas de banco e as configurações na aba <b>Configurações</b>.</li>
-        <li>Use o botão <b>Gravar no rádio</b> (ícone de upload, no topo) para enviar ao rádio — um modal vai perguntar se você quer limpar a memória antes.</li>
-        <li>Use <b>Salvar arquivo</b> para baixar um arquivo <code>.bc75xlt_ss</code> compatível com o software original.</li>
+        <li data-i18n-html="helpStep1">Conecte o rádio ao computador pelo cabo USB (driver CP210x instalado).</li>
+        <li data-i18n-html="helpStep2">Clique em <b>Conectar rádio</b> e escolha a porta serial na janela do navegador.</li>
+        <li data-i18n-html="helpStep3">Use o botão <b>Ler do rádio</b> (ícone de download, no topo) para carregar tudo do rádio, ou <b>Importar arquivo</b> para carregar um <code>.bc75xlt_ss</code>.</li>
+        <li data-i18n-html="helpStep4">Edite as frequências nas abas de banco e as configurações na aba <b>Configurações</b>.</li>
+        <li data-i18n-html="helpStep5">Use o botão <b>Gravar no rádio</b> (ícone de upload, no topo) para enviar ao rádio — um modal vai perguntar se você quer limpar a memória antes.</li>
+        <li data-i18n-html="helpStep6">Use <b>Salvar arquivo</b> para baixar um arquivo <code>.bc75xlt_ss</code> compatível com o software original.</li>
       </ol>
-      <p class="help-note">A comunicação é feita direto pelo navegador (Web Serial API) — nenhum dado sai do seu computador. Requer <b>Chrome</b> ou <b>Edge</b> em uma página HTTPS.</p>
+      <p class="help-note" data-i18n-html="helpNote">A comunicação é feita direto pelo navegador (Web Serial API) — nenhum dado sai do seu computador. Requer <b>Chrome</b> ou <b>Edge</b> em uma página HTTPS.</p>
       <div class="modal-actions">
-        <button id="help-modal-close" class="btn btn-primary">Entendi</button>
+        <button id="help-modal-close" class="btn btn-primary" data-i18n="gotIt">Entendi</button>
       </div>
     </div>
   </div>
 
   <div id="clear-modal" class="modal-overlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="clear-modal-title">
-      <h3 id="clear-modal-title"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar banco</h3>
-      <p class="modal-desc" id="clear-modal-desc">Tem certeza que deseja apagar as frequências deste banco?</p>
+      <h3 id="clear-modal-title"><span class="ms" aria-hidden="true">delete_sweep</span> <span data-i18n="clearBankTitle">Limpar banco</span></h3>
+      <p class="modal-desc" id="clear-modal-desc" data-i18n="clearBankDesc">Tem certeza que deseja apagar as frequências deste banco?</p>
       <div class="modal-actions">
-        <button id="clear-modal-cancel" class="btn">Cancelar</button>
-        <button id="clear-modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">delete_sweep</span> Limpar</button>
+        <button id="clear-modal-cancel" class="btn" data-i18n="cancel">Cancelar</button>
+        <button id="clear-modal-confirm" class="btn btn-accent"><span class="ms" aria-hidden="true">delete_sweep</span> <span data-i18n="confirmClear">Limpar</span></button>
       </div>
     </div>
   </div>
@@ -233,6 +236,7 @@
   <div id="tooltip" class="tooltip" hidden></div>
   <div id="toast" class="toast" hidden></div>
 
+  <script src="js/i18n.js"></script>
   <script src="js/protocol.js"></script>
   <script src="js/configfile.js"></script>
   <script src="js/app.js"></script>

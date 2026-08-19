@@ -98,6 +98,26 @@ button { font: inherit; }
 .icon-btn.btn-accent { background: linear-gradient(135deg, var(--accent), var(--accent2)); border-color: transparent; color: #04121f; }
 .icon-btn.btn-accent:hover:not(:disabled) { filter: brightness(1.08); }
 
+/* Botão de idioma */
+.lang-btn {
+  appearance: none;
+  cursor: pointer;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--bg3);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  font-size: 12px;
+  transition: 0.15s;
+}
+.lang-btn .ms { font-size: 18px; margin: 0; }
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
 /* Tooltip fixo (não estoura a janela, quebra em linhas) */
 .tooltip {
   position: fixed;
