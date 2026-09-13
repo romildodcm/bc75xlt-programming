@@ -313,6 +313,7 @@ function setLang(lang) {
   try { localStorage.setItem('bc75xlt-lang', LANG); } catch (err) { /* noop */ }
   applyLang();
   if (typeof renderAll === 'function') renderAll();
+  if (typeof track === 'function') track('language_selected', { language: LANG });
 }
 
 function initLang() {

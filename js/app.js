@@ -299,6 +299,7 @@ async function onConnect() {
     state.conn = null;
     renderStatus();
     toast(t('disconnected'));
+    if (typeof track === 'function') track('radio_disconnected');
     return;
   }
   if (!ScannerConnection.supported()) {
@@ -312,6 +313,7 @@ async function onConnect() {
     state.conn = conn;
     renderStatus();
     toast(t('connectedOk'));
+    if (typeof track === 'function') track('radio_connected');
     try {
       const mdl = (await conn.query('MDL', 3000)).split(',');
       state.model.meta.model = mdl[1] || '';
@@ -439,6 +441,7 @@ async function onRead() {
     connectionOk = state.conn.connected;
     if (connectionOk) {
       toast(t('readDone'));
+      if (typeof track === 'function') track('radio_read');
     } else {
       toast(t('readLostConn'), 'error');
     }
@@ -479,6 +482,7 @@ function closeWriteModal() {
 function openHelpModal() {
   $('#help-modal').hidden = false;
   $('#help-modal-close').focus();
+  if (typeof track === 'function') track('help_opened');
 }
 
 function closeHelpModal() {
@@ -624,6 +628,7 @@ async function doWrite(clearFirst) {
     await conn.query(`SQL,${m.misc.sq}`);
 
     toast(t('writeDone'));
+    if (typeof track === 'function') track('radio_write', { clear_first: clearFirst });
   } catch (err) {
     toast(t('writeFail', err.message), 'error');
   } finally {
@@ -651,6 +656,7 @@ function onExport() {
   a.remove();
   URL.revokeObjectURL(url);
   toast(t('fileSaved'));
+  if (typeof track === 'function') track('config_exported');
 }
 
 function onImport(e) {
@@ -664,6 +670,7 @@ function onImport(e) {
       renderInfo();
       renderBanks();
       toast(t('fileImported', file.name));
+      if (typeof track === 'function') track('config_imported');
     } catch (err) {
       toast(t('importFail', err.message), 'error');
     }

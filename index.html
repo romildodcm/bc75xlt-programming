@@ -63,6 +63,21 @@
     "keywords": "BC75XLT, UBC75XLT, Uniden, scanner, programador de rádio, Web Serial, frequências"
   }
   </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V094KJ3N77"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-V094KJ3N77');
+
+    // Helper para eventos personalizados (seguro caso o Analytics seja bloqueado)
+    window.track = function (name, params) {
+      if (typeof gtag === 'function') gtag('event', name, params || {});
+    };
+  </script>
 </head>
 <body>
 
