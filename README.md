@@ -2,7 +2,9 @@
 
 > 🇧🇷 [Versão em português](README.pt-BR.md) · Portuguese version available
 
-A static web page (for **GitHub Pages**) that programs the **Uniden BC75XLT / UBC75XLT** scanner radio directly from the browser using the **Web Serial API** — no software to install and no data sent to servers.
+A static web page, published on **GitHub Pages**, that programs the **Uniden BC75XLT / UBC75XLT** scanner radio directly from the browser using the **Web Serial API** — no software to install and no data sent to servers.
+
+🔗 **Live app: <https://bcp.romildo.net>**
 
 ![Web Serial](https://img.shields.io/badge/Web%20Serial-Chrome%20%2F%20Edge-blue) ![Static](https://img.shields.io/badge/static-100%25-34d399)
 
@@ -20,53 +22,12 @@ A static web page (for **GitHub Pages**) that programs the **Uniden BC75XLT / UB
 ## How to use
 
 1. Connect the radio to the computer via USB cable (driver **Silicon Labs CP210x** installed).
-2. Open the page in **Chrome** or **Edge** (over HTTPS).
+2. Open **<https://bcp.romildo.net>** in **Chrome** or **Edge**.
 3. Click **Connect radio** and pick the serial port.
 4. **Read from radio** or **Import file** to load the configuration.
 5. Edit and click **Write to radio**.
 
-> The Web Serial API requires **HTTPS** (GitHub Pages provides it automatically) or `localhost` for local testing.
-
-## Running locally (tests)
-
-```bash
-python3 -m http.server 8000
-# open http://localhost:8000
-```
-
-Round-trip test of the `.bc75xlt_ss` format (uses the sanitized fixture in `test/fixtures/` — dummy data, no real content):
-
-```bash
-node test/roundtrip.test.js
-# Regenerate the fixture (optional): node test/generate-fixture.js
-```
-
-## Publishing to GitHub Pages + `bcp.romildo.net` domain
-
-1. Create a GitHub repository from this folder and push it:
-
-   ```bash
-   git init
-   git add .
-   git commit -m "BC75XLT Web Programmer"
-   git branch -M main
-   git remote add origin git@github.com:YOUR_USER/YOUR_REPO.git
-   git push -u origin main
-   ```
-
-2. In the repository: **Settings → Pages** → *Source*: **Deploy from a branch** → `main` / root. The `CNAME` file is already in the repository.
-
-3. **Settings → Pages → Custom domain**: enter `bcp.romildo.net` and save (enables automatic SSL).
-
-4. In your DNS provider, create the record pointing to GitHub Pages:
-
-   | Type  | Name | Value                   |
-   |-------|------|-------------------------|
-   | CNAME | `bcp` | `YOUR_USER.github.io`   |
-
-   (Or `A` records for GitHub Pages' current IP addresses — see the [documentation](https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site).)
-
-5. Wait for the SSL certificate and access **<https://bcp.romildo.net>**.
+> The Web Serial API requires **HTTPS**, which GitHub Pages provides automatically. Use **Chrome** or **Edge** on desktop.
 
 ## Technical notes
 
@@ -76,18 +37,5 @@ node test/roundtrip.test.js
 - The `.bc75xlt_ss` file is text with **TAB**-separated fields and **CRLF** line endings, faithfully reproduced on export.
 - Global lockouts are read from the radio (read-only for now).
 - References: [mateusza/bearcatctl](https://github.com/mateusza/bearcatctl) and [skriebel/bc75xlt](https://github.com/skriebel/bc75xlt).
-
-## Structure
-
-```text
-├── index.html          # Main page
-├── css/style.css       # Styles
-├── js/
-│   ├── protocol.js     # Web Serial + BC75XLT protocol commands
-│   ├── configfile.js   # Parse/export of the .bc75xlt_ss file
-│   └── app.js          # UI logic and read/write operations
-├── CNAME               # bcp.romildo.net
-└── referencias/        # Reference repositories (ignored by git)
-```
 
 > ⚠️ **Disclaimer**: program your radio responsibly and within your local amateur radio / band legislation.
